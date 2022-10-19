@@ -1,3 +1,6 @@
 rootProject.name = 'api-tools-at'
 include 'rest-assured'
+include 'retrofit'
+include 'api-school'
+include 'api-school'
 
