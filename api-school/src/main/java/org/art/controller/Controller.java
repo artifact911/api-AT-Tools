@@ -6,6 +6,7 @@ import org.art.repository.PupilService;
 import org.art.repository.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class Controller {
 
     @GetMapping("/")
     public ResponseEntity<?> hi() {
-        return ResponseEntity.status(HttpStatus.OK).body("Hello World!");
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("Hello World!");
     }
 
     @GetMapping("/schools")
