@@ -1,10 +1,10 @@
-package org.art.repository;
+package org.art.services;
 
 import org.art.model.Pupil;
 
 import java.util.List;
 
-public interface PupilService {
+public interface PupilServiceOld {
 
     List<Pupil> getPupils(int idSchool);
 

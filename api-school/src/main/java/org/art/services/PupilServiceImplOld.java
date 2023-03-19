@@ -1,6 +1,6 @@
-package org.art.repository;
+package org.art.services;
 
-import org.art.dao.SchoolDao;
+import org.art.dao.SchoolDaoOld;
 import org.art.model.Pupil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PupilServiceImpl implements PupilService {
+public class PupilServiceImplOld implements PupilServiceOld {
 
-    private final SchoolDao schoolDao;
+    private final SchoolDaoOld schoolDao;
 
     @Autowired
-    public PupilServiceImpl(SchoolDao schoolDao) {
+    public PupilServiceImplOld(SchoolDaoOld schoolDao) {
         this.schoolDao = schoolDao;
     }
 

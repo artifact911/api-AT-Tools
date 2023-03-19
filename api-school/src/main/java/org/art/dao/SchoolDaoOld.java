@@ -5,7 +5,7 @@ import org.art.model.School;
 
 import java.util.List;
 
-public interface SchoolDao {
+public interface SchoolDaoOld {
 
     List<School> getSchools();
 

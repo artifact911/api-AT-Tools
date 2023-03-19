@@ -2,13 +2,12 @@ package org.art.dao;
 
 import org.art.model.Pupil;
 import org.art.model.School;
-import org.art.util.RandomGeneratorUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class SchoolDaoImpl implements SchoolDao {
+public class SchoolDaoImplOld implements SchoolDaoOld {
 
 //    private static final List<School> schoolListDao = RandomGeneratorUtil.getRandomSchoolsList(3);
 

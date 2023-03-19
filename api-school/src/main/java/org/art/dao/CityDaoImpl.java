@@ -2,9 +2,11 @@ package org.art.dao;
 
 import org.art.model.City;
 import org.art.storage.EntityStorage;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class CityDaoImpl implements Dao<Integer, City>{
 
     @Override

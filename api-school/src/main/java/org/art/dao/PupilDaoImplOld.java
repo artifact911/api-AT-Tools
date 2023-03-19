@@ -4,7 +4,7 @@ import org.art.model.Pupil;
 
 import java.util.List;
 
-public class PupilDaoImpl implements Dao<Integer, Pupil>{
+public class PupilDaoImplOld implements Dao<Integer, Pupil>{
 
     @Override
     public List<Pupil> getAll() {
