@@ -1,7 +1,12 @@
 package org.art.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Getter
+@Setter
 public class School {
 
     private static int idSchool = 1;
@@ -14,17 +19,5 @@ public class School {
         this.pupilList = pupilList;
         this.id = idSchool;
         idSchool++;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public List<Pupil> getPupilList() {
-        return pupilList;
-    }
-
-    public void setPupilList(List<Pupil> pupilList) {
-        this.pupilList = pupilList;
     }
 }

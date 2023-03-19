@@ -15,5 +15,4 @@ public interface PupilService {
     Pupil editPupil(int idSchool, int idPupil, Pupil pupil);
 
     List<Pupil> delPupil(int idSchool, int idPupil);
-
 }

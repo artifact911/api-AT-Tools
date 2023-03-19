@@ -14,7 +14,4 @@ public interface SchoolDao {
     List<Pupil> addPupil(int idSchool, Pupil pupil);
 
     List<Pupil> delPupil(int idSchool, int idPupil);
-
-
-
 }

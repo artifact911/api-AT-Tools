@@ -9,8 +9,4 @@ public interface SchoolService {
     List<School> getSchools();
 
     School getSchool(int id);
-
-
-
-
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class PupilServiceImpl implements PupilService {
 
-    private SchoolDao schoolDao;
+    private final SchoolDao schoolDao;
 
     @Autowired
     public PupilServiceImpl(SchoolDao schoolDao) {
@@ -39,6 +39,7 @@ public class PupilServiceImpl implements PupilService {
         Pupil pupilEdited = schoolDao.getSchool(idSchool).getPupilList().stream()
                                      .filter(pupil -> pupil.getIdPupil() == idPupil)
                                      .findFirst().get();
+
         pupilEdited.setFirstName(pupilNew.getFirstName());
         pupilEdited.setLastName(pupilNew.getLastName());
         pupilEdited.setClazz(pupilNew.getClazz());

@@ -28,6 +28,7 @@ public final class RetrofitClientFactory {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
+
         return retrofit.create(clazz);
     }
 }
