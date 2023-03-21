@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
 public class School {
 
     private static int id = 1;

@@ -35,7 +35,6 @@ public final class RandomGeneratorUtil {
     }
 
     private static City getCity(int nameIndex) {
-        assert CITY_NAME_LIST != null;
         return new City(CITY_NAME_LIST.get(nameIndex), getRandomSchoolsList());
     }
 
@@ -73,6 +72,7 @@ public final class RandomGeneratorUtil {
 
     private static LessonClass getLessonClass(int clazz, String postfix) {
         return LessonClass.builder()
+                .classId(clazz + "-" + postfix)
                           .clazz(clazz)
                           .postfix(postfix)
                           .pupils(getRandomPupilList(clazz, postfix))
@@ -85,7 +85,7 @@ public final class RandomGeneratorUtil {
                       .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                       .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
                       .mainClass(clazz + "-" + postfix)
-                      .mainObject(MainObject.values()[RN.nextInt(MainObject.values().length - 1)])
+                      .mainObject(MainObject.values()[RN.nextInt(MainObject.values().length)])
                       .build();
     }
 
@@ -271,6 +271,4 @@ public final class RandomGeneratorUtil {
                        "им. Микелянджело",
                        "им. Донателло");
     }
-
-    //  return names.get(RN.nextInt(names.size() - 1));
 }

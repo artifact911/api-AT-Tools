@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class CityDaoImpl implements Dao<Integer, City>{
+public class CityDao implements Dao<Integer, City> {
 
     @Override
     public List<City> getAll() {
@@ -17,6 +17,8 @@ public class CityDaoImpl implements Dao<Integer, City>{
     @Override
     public City getById(Integer id) {
         return EntityStorage.getCities().stream()
-                .filter(city -> id.equals(city.getCityId())).findFirst().orElse(new City());
+                            .filter(city -> id.equals(city.getCityId()))
+                            .findFirst()
+                            .orElse(new City());
     }
 }

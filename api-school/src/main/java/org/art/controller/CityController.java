@@ -1,16 +1,19 @@
 package org.art.controller;
 
+import org.art.model.City;
 import org.art.model.HelloWorld;
 import org.art.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/city")
+@RequestMapping("/cities")
 public class CityController {
 
     private final CityService cityService;
@@ -27,8 +30,8 @@ public class CityController {
         return ResponseEntity.ok(helloWorld);
     }
 
-    @GetMapping("/cities")
-    public ResponseEntity<?> getSchools() {
+    @GetMapping("/all")
+    public ResponseEntity<?> getCities() {
 
         try {
             return ResponseEntity.ok(cityService.getAllCities());
@@ -36,5 +39,11 @@ public class CityController {
             e.printStackTrace();
         }
         return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
+    }
+
+    @GetMapping("/id/{cityId}")
+    @ResponseStatus(HttpStatus.OK)
+    public City getCityById(@PathVariable("cityId") Integer id) {
+        return cityService.getCityById(id);
     }
 }

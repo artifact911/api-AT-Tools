@@ -2,6 +2,7 @@ package org.art.model;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+@NoArgsConstructor
 public class Pupil {
 
     private static int id = 1;
