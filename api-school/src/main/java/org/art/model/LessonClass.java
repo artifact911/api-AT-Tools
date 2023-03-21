@@ -19,4 +19,11 @@ public class LessonClass {
     private Teacher mainTeacher;
     private List<Pupil> pupils;
     private Double awgClassMark;
+
+    public Double createAwgClassMark() {
+        assert pupils != null;
+        return pupils.stream()
+                     .mapToDouble(Pupil::getAwgMark)
+                     .average().getAsDouble();
+    }
 }

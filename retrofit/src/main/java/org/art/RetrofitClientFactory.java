@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import static org.art.core.Localhost.HOST;
+import static org.art.Hosts.LOCALHOST_8083;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RetrofitClientFactory {
@@ -23,7 +23,7 @@ public final class RetrofitClientFactory {
                                         .setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(HOST)
+                .baseUrl(LOCALHOST_8083)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)

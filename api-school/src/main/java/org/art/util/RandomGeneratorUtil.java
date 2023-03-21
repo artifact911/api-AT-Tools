@@ -71,13 +71,15 @@ public final class RandomGeneratorUtil {
     }
 
     private static LessonClass getLessonClass(int clazz, String postfix) {
-        return LessonClass.builder()
-                .classId(clazz + "-" + postfix)
-                          .clazz(clazz)
-                          .postfix(postfix)
-                          .pupils(getRandomPupilList(clazz, postfix))
-                          .mainTeacher(getTeacher(clazz, postfix))
-                          .build();
+        LessonClass lessonClass = LessonClass.builder()
+                                       .classId(clazz + "-" + postfix)
+                                       .clazz(clazz)
+                                       .postfix(postfix)
+                                       .pupils(getRandomPupilList(clazz, postfix))
+                                       .mainTeacher(getTeacher(clazz, postfix))
+                                       .build();
+        lessonClass.setAwgClassMark(lessonClass.createAwgClassMark());
+        return lessonClass;
     }
 
     private static Teacher getTeacher(int clazz, String postfix) {
