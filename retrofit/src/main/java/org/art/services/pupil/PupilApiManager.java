@@ -19,4 +19,9 @@ public class PupilApiManager extends ServiceManager {
     public <T> List<T> getAllPupils(int expectedCode, Class<T> clazz) {
         return getBodyList(validateResponse(pupilApiService.getAllPupils(), expectedCode), clazz);
     }
+
+    @SneakyThrows
+    public <T> T getPupilById(int pupilId, int expectedCode, Class<T> clazz) {
+        return getBody(validateResponse(pupilApiService.getPupilById(pupilId), expectedCode), clazz);
+    }
 }

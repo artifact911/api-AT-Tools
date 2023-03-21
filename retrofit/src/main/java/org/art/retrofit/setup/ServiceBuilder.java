@@ -2,9 +2,11 @@ package org.art.retrofit.setup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.art.retrofit.interceptors.PrettyLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.art.retrofit.interceptors.PrettyLoggingInterceptor.Level.VERBOSE;
+
+@Slf4j
 public class ServiceBuilder {
 
     private List<Interceptor> interceptors = new ArrayList<>();
@@ -37,7 +42,8 @@ public class ServiceBuilder {
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
                 .baseUrl(service.type().getBaseUrl() + service.path())
-                .client(okHttpClientBuilder.build())
+                .client(okHttpClientBuilder.addInterceptor(new PrettyLoggingInterceptor(log::info).setLevel(VERBOSE)).build())
+//                .client(okHttpClientBuilder.build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

@@ -19,4 +19,14 @@ public class LessonClassApiManager extends ServiceManager {
     public <T> List<T> getAllClasses(int expectedCode, Class<T> clazz) {
         return getBodyList(validateResponse(lessonClassApiService.getAllClasses(), expectedCode), clazz);
     }
+
+    @SneakyThrows
+    public <T> T getClassById(String classId, int expectedCode, Class<T> clazz) {
+        return getBody(validateResponse(lessonClassApiService.getClassById(classId), expectedCode), clazz);
+    }
+
+    @SneakyThrows
+    public <T> List<T> getClassByLevel(int classLevel, int expectedCode, Class<T> clazz) {
+        return getBodyList(validateResponse(lessonClassApiService.getClassByLevel(classLevel), expectedCode), clazz);
+    }
 }

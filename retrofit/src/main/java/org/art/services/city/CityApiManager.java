@@ -19,4 +19,9 @@ public class CityApiManager extends ServiceManager {
     public <T> List<T> getAllCities(int expectedCode, Class<T> clazz) {
        return getBodyList(validateResponse(cityApiService.getAllCities(), expectedCode), clazz);
     }
+
+    @SneakyThrows
+    public <T> T getCityById(int cityId, int expectedCode, Class<T> clazz) {
+       return getBody(validateResponse(cityApiService.getCityById(cityId), expectedCode), clazz);
+    }
 }

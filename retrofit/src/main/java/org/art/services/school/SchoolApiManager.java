@@ -19,4 +19,9 @@ public class SchoolApiManager extends ServiceManager {
     public <T> List<T> getAllSchools(int expectedCode, Class<T> clazz) {
         return getBodyList(validateResponse(schoolApiService.getAllSchools(), expectedCode), clazz);
     }
+
+    @SneakyThrows
+    public <T> T getSchoolById(int schoolId, int expectedCode, Class<T> clazz) {
+          return getBody(validateResponse(schoolApiService.getSchoolById(schoolId), expectedCode), clazz);
+    }
 }
