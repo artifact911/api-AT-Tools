@@ -1,6 +1,7 @@
 package org.art.tests.city;
 
 import io.qameta.allure.Epic;
+import io.qameta.allure.Epics;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Issue;
 import io.qameta.allure.Owner;
@@ -32,7 +33,8 @@ import static org.art.services.city.CityApiService.GET_ALL_CITIES_EP;
 import static org.art.services.city.CityApiService.GET_CITY_BY_ID_EP;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@Epic(CITY_API)
+
+@Epics({@Epic(CITY_API), @Epic(KORBEN_TEAM)})
 @Owner(KORBEN_TEAM)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetCityTest {
