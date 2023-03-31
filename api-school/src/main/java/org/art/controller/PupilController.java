@@ -1,9 +1,12 @@
 package org.art.controller;
 
+import org.art.common.Api;
 import org.art.dto.PupilReqBody;
+import org.art.helpers.response.RespEntityHelper;
 import org.art.model.Pupil;
 import org.art.services.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,31 +39,20 @@ public class PupilController {
     @DeleteMapping("/id/delete/{pupilId}")
     public ResponseEntity<?> delPupilById(@PathVariable("pupilId") Integer id) {
         if (pupilService.delPupilById(id)) {
-            return new ResponseEntity<>("Success", HttpStatus.OK);
+            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
+        return RespEntityHelper.getErrorResp(HttpMethod.DELETE, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/id/add/{schoolId}")
     public ResponseEntity<?> addPupilToSchool(@PathVariable Integer schoolId,
                                               @RequestBody PupilReqBody pupilReqBody) {
         if (pupilService.addPupilToSchool(schoolId, pupilReqBody)) {
-            return new ResponseEntity<>("Success", HttpStatus.OK);
+            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
         }
-        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
+        return RespEntityHelper.getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//
-//    @PostMapping("/add")
-//    public ResponseEntity<?> addPupil(@RequestParam("idSchool") int idSchool, @RequestBody Pupil pupil) {
-//        try {
-//            List<Pupil> newList = pupilService.postPupil(idSchool, pupil);
-//            return ResponseEntity.ok(pupilService.getPupils(idSchool));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
-//    }
 //
 //    @PutMapping ("/edit")
 //    public ResponseEntity<?> editPupil(@RequestParam("idSchool") int idSchool, @RequestParam("idPupil") int idPupil,
