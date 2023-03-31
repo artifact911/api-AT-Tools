@@ -27,4 +27,12 @@ public class PupilServiceImpl implements PupilService {
     public Pupil getPupilById(Integer id) {
         return pupilDao.getById(id);
     }
+
+    @Override
+    public boolean delPupilById(Integer id) {
+//        if (!pupilDao.delPupilById(id)) {
+//            throw new IllegalArgumentException();
+//        }
+        return pupilDao.delPupilById(id);
+    }
 }

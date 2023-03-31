@@ -1,23 +1,10 @@
 package org.art.tests.city;
 
-import io.qameta.allure.Epic;
-import io.qameta.allure.Epics;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Issue;
-import io.qameta.allure.Owner;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
-import io.qameta.allure.TmsLink;
+import io.qameta.allure.*;
 import org.art.AssertionsUtil;
 import org.art.school.city.CityItem;
 import org.art.services.city.CityApiManager;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -34,7 +21,7 @@ import static org.art.services.city.CityApiService.GET_CITY_BY_ID_EP;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
-@Epics({@Epic(CITY_API), @Epic(KORBEN_TEAM)})
+@Epic(CITY_API)
 @Owner(KORBEN_TEAM)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetCityTest {

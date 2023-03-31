@@ -10,6 +10,8 @@ public interface PupilService {
 
     Pupil getPupilById(Integer id);
 
+    boolean delPupilById(Integer id);
+
 //    List<Pupil> postPupil(int idSchool, Pupil pupil);
 //
 //    Pupil editPupil(int idSchool, int idPupil, Pupil pupil);
