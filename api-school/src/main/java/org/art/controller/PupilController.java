@@ -1,5 +1,6 @@
 package org.art.controller;
 
+import org.art.dto.PupilReqBody;
 import org.art.model.Pupil;
 import org.art.services.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,16 @@ public class PupilController {
     @DeleteMapping("/id/delete/{pupilId}")
     public ResponseEntity<?> delPupilById(@PathVariable("pupilId") Integer id) {
         if (pupilService.delPupilById(id)) {
-            return new ResponseEntity<>("SuccessED", HttpStatus.OK);
+            return new ResponseEntity<>("Success", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
+    }
+
+    @PostMapping("/id/add/{schoolId}")
+    public ResponseEntity<?> addPupilToSchool(@PathVariable Integer schoolId,
+                                              @RequestBody PupilReqBody pupilReqBody) {
+        if (pupilService.addPupilToSchool(schoolId, pupilReqBody)) {
+            return new ResponseEntity<>("Success", HttpStatus.OK);
         }
         return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
     }

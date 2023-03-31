@@ -1,5 +1,6 @@
 package org.art.services;
 
+import org.art.dto.PupilReqBody;
 import org.art.model.Pupil;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface PupilService {
     Pupil getPupilById(Integer id);
 
     boolean delPupilById(Integer id);
+
+    boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody);
 
 //    List<Pupil> postPupil(int idSchool, Pupil pupil);
 //

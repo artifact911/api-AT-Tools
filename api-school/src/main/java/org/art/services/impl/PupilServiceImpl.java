@@ -1,6 +1,7 @@
 package org.art.services.impl;
 
 import org.art.dao.PupilDao;
+import org.art.dto.PupilReqBody;
 import org.art.model.Pupil;
 import org.art.services.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class PupilServiceImpl implements PupilService {
     @Override
     public boolean delPupilById(Integer id) {
         return pupilDao.delPupilById(id);
+    }
+
+    @Override
+    public boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody) {
+        return pupilDao.addPupil(schoolId, pupilReqBody);
     }
 }

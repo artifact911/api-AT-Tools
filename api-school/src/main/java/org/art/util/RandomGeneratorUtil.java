@@ -82,7 +82,7 @@ public final class RandomGeneratorUtil {
         return lessonClass;
     }
 
-    private static Teacher getTeacher(int clazz, String postfix) {
+    public static Teacher getTeacher(int clazz, String postfix) {
         return Teacher.builder()
                       .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                       .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))

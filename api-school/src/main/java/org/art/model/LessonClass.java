@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,12 +14,16 @@ import java.util.List;
 @AllArgsConstructor
 public class LessonClass {
 
-    private String classId;
+    @Builder.Default
+    private String classId = "";
     private int clazz;
-    private String postfix;
+    @Builder.Default
+    private String postfix = "";
     private Teacher mainTeacher;
-    private List<Pupil> pupils;
-    private Double awgClassMark;
+    @Builder.Default
+    private List<Pupil> pupils = new ArrayList<>();
+    @Builder.Default
+    private Double awgClassMark = 0.0;
 
     public Double createAwgClassMark() {
         assert pupils != null;
