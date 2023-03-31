@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PupilServiceImpl implements PupilService {
@@ -25,14 +26,12 @@ public class PupilServiceImpl implements PupilService {
 
     @Override
     public Pupil getPupilById(Integer id) {
-        return pupilDao.getById(id);
+        Optional<Pupil> pupil = pupilDao.getById(id);
+        return pupil.orElseGet(Pupil::new);
     }
 
     @Override
     public boolean delPupilById(Integer id) {
-//        if (!pupilDao.delPupilById(id)) {
-//            throw new IllegalArgumentException();
-//        }
         return pupilDao.delPupilById(id);
     }
 }

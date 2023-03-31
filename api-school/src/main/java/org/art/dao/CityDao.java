@@ -5,6 +5,7 @@ import org.art.storage.EntityStorage;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CityDao implements Dao<Integer, City> {
@@ -15,10 +16,9 @@ public class CityDao implements Dao<Integer, City> {
     }
 
     @Override
-    public City getById(Integer id) {
+    public Optional<City> getById(Integer id) {
         return EntityStorage.getCities().stream()
-                            .filter(city -> id.equals(city.getCityId()))
-                            .findFirst()
-                            .orElse(new City());
+                .filter(city -> id.equals(city.getCityId()))
+                .findFirst();
     }
 }

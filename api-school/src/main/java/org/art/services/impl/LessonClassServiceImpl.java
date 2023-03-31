@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LessonClassServiceImpl implements LessonClassService {
@@ -30,6 +31,7 @@ public class LessonClassServiceImpl implements LessonClassService {
 
     @Override
     public LessonClass getLessonClassById(String id) {
-        return lessonClassDao.getById(id);
+        Optional<LessonClass> lessonClass = lessonClassDao.getById(id);
+        return lessonClass.orElseGet(LessonClass::new);
     }
 }

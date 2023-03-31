@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class SchoolDao implements Dao<Integer, School> {
@@ -14,18 +15,17 @@ public class SchoolDao implements Dao<Integer, School> {
     public List<School> getAll() {
         List<School> list = new ArrayList<>();
         EntityStorage.getCities().stream()
-                     .filter(city -> !city.getSchools().isEmpty())
-                     .forEach(city -> list.addAll(city.getSchools()));
+                .filter(city -> !city.getSchools().isEmpty())
+                .forEach(city -> list.addAll(city.getSchools()));
 
         return list;
     }
 
     @Override
-    public School getById(Integer id) {
+    public Optional<School> getById(Integer id) {
         return EntityStorage.getCities().stream()
-                            .flatMap(city -> city.getSchools().stream())
-                            .filter(school -> id.equals(school.getSchoolId()))
-                            .findFirst()
-                            .orElse(new School());
+                .flatMap(city -> city.getSchools().stream())
+                .filter(school -> id.equals(school.getSchoolId()))
+                .findFirst();
     }
 }

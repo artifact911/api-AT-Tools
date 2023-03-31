@@ -40,15 +40,6 @@ public class PupilController {
         return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
     }
 
-//    @DeleteMapping("/del")
-//    public ResponseEntity<?> delPupil(@RequestParam("idSchool") int idSchool, @RequestParam("idPupil") int idPupil) {
-//        try {
-//            return ResponseEntity.ok(pupilService.delPupil(idSchool, idPupil));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
-//    }
 //
 //    @PostMapping("/add")
 //    public ResponseEntity<?> addPupil(@RequestParam("idSchool") int idSchool, @RequestBody Pupil pupil) {

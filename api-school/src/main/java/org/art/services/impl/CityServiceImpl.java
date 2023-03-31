@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements CityService {
@@ -25,6 +26,7 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public City getCityById(Integer id) {
-        return cityDao.getById(id);
+        Optional<City> city = cityDao.getById(id);
+        return city.orElseGet(City::new);
     }
 }

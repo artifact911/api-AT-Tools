@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SchoolServiceImpl implements SchoolService {
@@ -20,7 +21,8 @@ public class SchoolServiceImpl implements SchoolService {
 
     @Override
     public School getSchoolById(Integer id) {
-        return schoolDao.getById(id);
+        Optional<School> school = schoolDao.getById(id);
+        return school.orElseGet(School::new);
     }
 
     @Override

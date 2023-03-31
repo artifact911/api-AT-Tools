@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,26 +19,25 @@ public class TeacherDao implements Dao<Integer, Teacher> {
         List<Teacher> list = new ArrayList<>();
 
         EntityStorage.getCities().stream()
-                     .filter(city -> !city.getSchools().isEmpty())
-                     .flatMap(city -> city.getSchools().stream())
-                     .map(School::getTeacherList)
-                     .forEach(list::addAll);
+                .filter(city -> !city.getSchools().isEmpty())
+                .flatMap(city -> city.getSchools().stream())
+                .map(School::getTeacherList)
+                .forEach(list::addAll);
 
         return list;
     }
 
     @Override
-    public Teacher getById(Integer id) {
+    public Optional<Teacher> getById(Integer id) {
         return getAll().stream()
-                       .filter(teacher -> id.equals(teacher.getTeacherId()))
-                       .findFirst()
-                       .orElse(new Teacher());
+                .filter(teacher -> id.equals(teacher.getTeacherId()))
+                .findFirst();
     }
 
     public List<Teacher> getTeachersByTechnology(MainObject mainObject) {
         List<Teacher> list = getAll().stream()
-                                     .filter(teacher -> mainObject.equals(teacher.getMainObject()))
-                                     .collect(Collectors.toList());
+                .filter(teacher -> mainObject.equals(teacher.getMainObject()))
+                .collect(Collectors.toList());
 
         return list.isEmpty() ? new ArrayList<>() : list;
     }
