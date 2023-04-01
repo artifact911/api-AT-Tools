@@ -15,9 +15,5 @@ public interface PupilService {
 
     boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody);
 
-//    List<Pupil> postPupil(int idSchool, Pupil pupil);
-//
-//    Pupil editPupil(int idSchool, int idPupil, Pupil pupil);
-//
-//    List<Pupil> delPupil(int idSchool, int idPupil);
+    boolean pathPupil(Integer pupilId, PupilReqBody pupilReqBody);
 }

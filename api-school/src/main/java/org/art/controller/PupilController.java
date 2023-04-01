@@ -30,6 +30,7 @@ public class PupilController {
         return pupilService.getAll();
     }
 
+    // TODO как тут сделать возвращаемый статус код другой, если упало?
     @GetMapping("/id/{pupilId}")
     @ResponseStatus(HttpStatus.OK)
     public Pupil getPupilById(@PathVariable("pupilId") Integer id) {
@@ -51,6 +52,15 @@ public class PupilController {
             return RespEntityHelper.getSuccessResp(HttpStatus.OK);
         }
         return RespEntityHelper.getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PatchMapping("id/patch/{pupilId}")
+    public ResponseEntity<?> patchPupil(@PathVariable("pupilId") Integer id,
+                                        @RequestBody PupilReqBody pupilReqBody) {
+        if (pupilService.pathPupil(id, pupilReqBody)) {
+            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
+        }
+        return RespEntityHelper.getErrorResp(HttpMethod.PATCH, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 //

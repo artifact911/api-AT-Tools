@@ -25,7 +25,7 @@ public class LessonClassController {
 
     @GetMapping("/id/{classLessonId}")
     @ResponseStatus(HttpStatus.OK)
-    public LessonClass getLessonClassById(@PathVariable("classLessonId") String id) {
+    public LessonClass getLessonClassById(@PathVariable("classLessonId") Integer id) {
         return lessonClassService.getLessonClassById(id);
     }
 

@@ -15,6 +15,6 @@ public final class EntityStorage {
 
     static
     {
-      cities = RandomGeneratorUtil.getRandomCitiesList(12);
+      cities = RandomGeneratorUtil.createRandomCitiesList(12);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class LessonClassDao implements Dao<String, LessonClass> {
+public class LessonClassDao implements Dao<Integer, LessonClass> {
 
     @Override
     public List<LessonClass> getAll() {
@@ -24,9 +24,9 @@ public class LessonClassDao implements Dao<String, LessonClass> {
     }
 
     @Override
-    public Optional<LessonClass> getById(String id) {
+    public Optional<LessonClass> getById(Integer id) {
         return getAll().stream()
-                .filter(clazz -> id.equals(clazz.getClassId()))
+                .filter(clazz -> id.equals(clazz.getIdLessonClass()))
                 .findFirst();
     }
 

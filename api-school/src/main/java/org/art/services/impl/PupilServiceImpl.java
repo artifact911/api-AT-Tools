@@ -40,4 +40,9 @@ public class PupilServiceImpl implements PupilService {
     public boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody) {
         return pupilDao.addPupil(schoolId, pupilReqBody);
     }
+
+    @Override
+    public boolean pathPupil(Integer pupilId, PupilReqBody pupilReqBody) {
+        return pupilDao.patchPupil(pupilId, pupilReqBody);
+    }
 }

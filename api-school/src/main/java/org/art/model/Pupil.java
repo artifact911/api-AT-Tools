@@ -23,13 +23,19 @@ public class Pupil {
     private String firstName;
     private String lastName;
     private Gender gender;
-    private String clazz;
 
-    public Pupil(String firstName, String lastName, Gender gender, String clazz) {
+    private int clazz;
+    @Builder.Default
+    private String postfix = "";
+    private String clazzFullName;
+
+    public Pupil(String firstName, String lastName, Gender gender, int clazz, String postfix, String clazzFullName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.clazz = clazz;
+        this.postfix = postfix;
+        this.clazzFullName = clazzFullName;
         id++;
     }
 
@@ -38,7 +44,6 @@ public class Pupil {
         IntStream.range(1, 10).forEach(n -> {
             sum.addAndGet(new Random().nextInt(10) + 2);
         });
-
         return (double) sum.intValue() / 10;
     }
 }

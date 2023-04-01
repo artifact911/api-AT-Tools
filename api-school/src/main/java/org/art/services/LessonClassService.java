@@ -8,5 +8,5 @@ public interface LessonClassService {
 
     List<LessonClass> getAllLessonClasses();
     List<LessonClass> getLessonClassesByLevel(Integer id);
-    LessonClass getLessonClassById(String id);
+    LessonClass getLessonClassById(Integer id);
 }

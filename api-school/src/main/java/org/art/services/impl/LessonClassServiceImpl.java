@@ -30,7 +30,7 @@ public class LessonClassServiceImpl implements LessonClassService {
     }
 
     @Override
-    public LessonClass getLessonClassById(String id) {
+    public LessonClass getLessonClassById(Integer id) {
         Optional<LessonClass> lessonClass = lessonClassDao.getById(id);
         return lessonClass.orElseGet(LessonClass::new);
     }

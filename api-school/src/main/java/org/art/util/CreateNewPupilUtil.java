@@ -16,11 +16,13 @@ public final class CreateNewPupilUtil {
                 .firstName(pupilReqBody.getFirstName())
                 .lastName(pupilReqBody.getLastName())
                 .gender(validateGender(pupilReqBody.getGender()))
-                .clazz(pupilReqBody.getClazz() + "-" + pupilReqBody.getPostfix())
+                .clazz(pupilReqBody.getClazz())
+                .postfix(pupilReqBody.getPostfix())
+                .clazzFullName(pupilReqBody.getClazz() + "-" + pupilReqBody.getPostfix())
                 .build();
     }
 
-    private static Gender validateGender(String gender) {
+    public static Gender validateGender(String gender) {
        return Arrays.stream(Gender.values()).filter(g -> gender.equals(g.name()))
                .findFirst()
                .orElse(Gender.UNDEFINED);
