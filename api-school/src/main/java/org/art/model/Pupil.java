@@ -1,10 +1,6 @@
 package org.art.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -20,16 +16,21 @@ public class Pupil {
     private static int id = 1;
     private final int idPupil = id;
     private final Double awgMark = createAwgMark();
+    private int cityId;
+    private int schoolId;
+    private int lessonClassId;
     private String firstName;
     private String lastName;
     private Gender gender;
-
     private int clazz;
-    @Builder.Default
-    private String postfix = "";
+    private String postfix;
     private String clazzFullName;
 
-    public Pupil(String firstName, String lastName, Gender gender, int clazz, String postfix, String clazzFullName) {
+    public Pupil(int cityId, int schoolId, int lessonClassId, String firstName, String lastName, Gender gender,
+                 int clazz, String postfix, String clazzFullName) {
+        this.cityId = cityId;
+        this.schoolId = schoolId;
+        this.lessonClassId = lessonClassId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

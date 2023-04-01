@@ -6,7 +6,6 @@ import org.art.model.Pupil;
 import org.art.model.School;
 import org.art.model.Teacher;
 import org.art.storage.EntityStorage;
-import org.art.util.CreateNewLessonClassUtil;
 import org.art.util.CreateNewPupilUtil;
 import org.art.util.RandomGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,22 +62,23 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
-    public boolean addPupil(Integer schoolId, PupilReqBody pupilReqBody) {
+    public boolean addPupil(Integer schoolId, PupilReqBody body) {
         Optional<School> school = schoolDao.getById(schoolId);
         if (school.isPresent()) {
             Optional<LessonClass> lessonClass = school.get().getLessonClassList().stream()
-                    .filter(lc -> pupilReqBody.getClazz() == (lc.getClazz())
-                            && pupilReqBody.getPostfix().equals(lc.getPostfix()))
+                    .filter(lc -> body.getClazz() == (lc.getClazz())
+                            && body.getPostfix().equals(lc.getPostfix()))
                     .findFirst();
             if (lessonClass.isPresent()) {
-                lessonClass.get().getPupils().add(getNewPupil(pupilReqBody));
+                lessonClass.get().getPupils().add(getNewPupil(body));
             } else {
                 List<Pupil> list = new ArrayList<>();
-                list.add(getNewPupil(pupilReqBody));
+                list.add(getNewPupil(body));
 
-                Teacher teacher = createRandomTeacher(pupilReqBody.getClazz(), pupilReqBody.getPostfix());
+                Teacher teacher = createRandomTeacher(body.getClazz(), body.getPostfix(), body.getCityId(),
+                        body.getSchoolId(), body.getLessonClassId());
 
-                LessonClass newLessonClass = createNewLessonClass(list, teacher, pupilReqBody.getClazz(), pupilReqBody.getPostfix());
+                LessonClass newLessonClass = createNewLessonClass(list, teacher, body.getClazz(), body.getPostfix());
 
                 school.get().getLessonClassList().add(newLessonClass);
                 school.get().getTeacherList().add(teacher);
@@ -132,7 +132,8 @@ public class PupilDao implements Dao<Integer, Pupil> {
                 List<Pupil> list = new ArrayList<>();
                 list.add(pupil);
 
-                Teacher teacher = createRandomTeacher(pupil.getClazz(), pupil.getPostfix());
+                Teacher teacher = createRandomTeacher(pupil.getClazz(), pupil.getPostfix(), pupil.getCityId(),
+                        pupil.getSchoolId(), pupil.getLessonClassId());
 
                 LessonClass newLessonClass = createNewLessonClass(list, teacher, pupil.getClazz(), pupil.getPostfix());
 

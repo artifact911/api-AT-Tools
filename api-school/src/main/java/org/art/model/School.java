@@ -1,10 +1,6 @@
 package org.art.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,16 +12,16 @@ import java.util.List;
 public class School {
 
     private static int id = 1;
-
     private final int schoolId = id;
+    private int cityId;
     private String name;
-
     private List<LessonClass> lessonClassList;
     private List<Teacher> teacherList;
 
-    public School(String name, List<LessonClass> lessonClassList, List<Teacher> teacherList) {
-        this.lessonClassList = lessonClassList;
+    public School(int cityId, String name, List<LessonClass> lessonClassList, List<Teacher> teacherList) {
+        this.cityId = cityId;
         this.name = name;
+        this.lessonClassList = lessonClassList;
         this.teacherList = teacherList;
         id++;
     }

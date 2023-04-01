@@ -10,4 +10,7 @@ public class PupilReqBody {
     private String gender;
     private int clazz;
     private String postfix;
+    private int cityId;
+    private int schoolId;
+    private int lessonClassId;
 }

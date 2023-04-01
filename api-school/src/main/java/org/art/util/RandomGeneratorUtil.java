@@ -29,22 +29,29 @@ public final class RandomGeneratorUtil {
     }
 
     private static City createRandomCity(int nameIndex) {
-        return new City(CITY_NAME_LIST.get(nameIndex), createRandomSchoolsList());
+        City city = City.builder()
+                .name(CITY_NAME_LIST.get(nameIndex))
+                .build();
+        city.setSchools(createRandomSchoolsList(city.getCityId()));
+        return city;
+
     }
 
-    private static List<School> createRandomSchoolsList() {
+    private static List<School> createRandomSchoolsList(int cityId) {
         List<School> list = new ArrayList<>();
-        IntStream.range(0, RN.nextInt(5)).forEach(n -> list.add(createRandomSchool()));
+        IntStream.range(0, RN.nextInt(5)).forEach(n -> list.add(createRandomSchool(cityId)));
 
         return list;
     }
 
-    private static School createRandomSchool() {
+    private static School createRandomSchool(int cityId) {
         School school = School.builder()
                 .name(SCHOOL_NAME_LIST.get(RN.nextInt(SCHOOL_NAME_LIST.size() - 1)))
-                .lessonClassList(createRandomLessonClassList())
+//                .lessonClassList(createRandomLessonClassList())
                 .build();
 
+        school.setCityId(cityId);
+        school.setLessonClassList(createRandomLessonClassList(cityId, school.getSchoolId()));
         school.setTeacherList(createRandomTeacherList(school.getLessonClassList()));
 
         return school;
@@ -56,48 +63,62 @@ public final class RandomGeneratorUtil {
                 .collect(Collectors.toList());
     }
 
-    private static List<LessonClass> createRandomLessonClassList() {
+    private static List<LessonClass> createRandomLessonClassList(int cityId, int schoolId) {
         List<LessonClass> list = new ArrayList<>();
         IntStream.range(1, 12).forEach(n -> {
-            IntStream.range(1, RN.nextInt(4) + 1).forEach(p -> list.add(createRandomLessonClass(n, POSTFIX_CLAZZ_LIST.get(p))));
+            IntStream.range(1, RN.nextInt(4) + 1)
+                    .forEach(p -> list.add(createRandomLessonClass(n, POSTFIX_CLAZZ_LIST.get(p),
+                            cityId, schoolId)));
         });
         return list;
     }
 
-    private static LessonClass createRandomLessonClass(int clazz, String postfix) {
+    private static LessonClass createRandomLessonClass(int clazz, String postfix,
+                                                       int cityId, int schoolId) {
         LessonClass lessonClass = LessonClass.builder()
-                .classFullName(clazz + "-" + postfix)
+                .classFullName(createClassFullName(clazz, postfix))
                 .clazz(clazz)
                 .postfix(postfix)
-                .pupils(createRandomPupilList(clazz, postfix))
-                .mainTeacher(createRandomTeacher(clazz, postfix))
+                .cityId(cityId)
+                .schoolId(schoolId)
                 .build();
+
+        lessonClass.setPupils(createRandomPupilList(clazz, postfix, cityId, schoolId, lessonClass.getIdLessonClass()));
+        lessonClass.setMainTeacher(createRandomTeacher(clazz, postfix, cityId, schoolId, lessonClass.getIdLessonClass()));
         lessonClass.setAwgClassMark(lessonClass.createAwgClassMark());
+
         return lessonClass;
     }
 
-    public static Teacher createRandomTeacher(int clazz, String postfix) {
+    public static Teacher createRandomTeacher(int clazz, String postfix, int cityId, int schoolId, int lessonClassId) {
         return Teacher.builder()
                 .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                 .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
-                .mainClass(clazz + "-" + postfix)
+                .mainClass(createClassFullName(clazz, postfix))
+                .cityId(cityId)
+                .schoolId(schoolId)
+                .lessonClassId(lessonClassId)
                 .mainObject(MainObject.values()[RN.nextInt(MainObject.values().length)])
                 .build();
     }
 
-    private static List<Pupil> createRandomPupilList(int clazz, String postfix) {
+    private static List<Pupil> createRandomPupilList(int clazz, String postfix, int cityId,
+                                                     int schoolId, int lessonClassId) {
         List<Pupil> list = new ArrayList<>();
-        IntStream.range(0, 15).forEach(n -> list.add(createRandomPupil(clazz, postfix)));
+        IntStream.range(0, 15).forEach(n -> list.add(createRandomPupil(clazz, postfix, cityId, schoolId, lessonClassId)));
         return list;
     }
 
-    private static Pupil createRandomPupil(int clazz, String postfix) {
+    private static Pupil createRandomPupil(int clazz, String postfix, int cityId, int schoolId, int lessonClassId) {
         return Pupil.builder()
                 .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                 .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
                 .clazz(clazz)
                 .postfix(postfix)
                 .clazzFullName(createClassFullName(clazz, postfix))
+                .cityId(cityId)
+                .schoolId(schoolId)
+                .lessonClassId(lessonClassId)
                 .gender(Gender.values()[RN.nextInt(2)])
                 .build();
     }

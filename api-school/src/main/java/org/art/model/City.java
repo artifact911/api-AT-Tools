@@ -1,27 +1,24 @@
 package org.art.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 public class City {
 
     private static int id = 1;
-    private int cityId;
+    private final int cityId = id;
     private String name;
     private List<School> schools;
 
     public City(String name, List<School> schools) {
         this.name = name;
         this.schools = schools;
-        this.cityId = id;
         id++;
     }
 }
