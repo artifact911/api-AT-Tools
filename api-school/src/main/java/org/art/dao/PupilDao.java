@@ -61,6 +61,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
+    @Override
     public boolean delete(Pupil pupil) {
         Optional<Pupil> maybePupil = getById(pupil.getIdPupil());
 
@@ -130,10 +131,12 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
+    @Override
     public boolean update(Pupil pupil) {
         return true;
     }
 
+    @Override
     public boolean create(Pupil pupil) {
         Optional<LessonClass> maybeLessonClass = lessonClassDao.getById(pupil.getLessonClassId());
         if(maybeLessonClass.isPresent()) {

@@ -28,4 +28,19 @@ public class SchoolDao implements Dao<Integer, School> {
                 .filter(school -> id.equals(school.getSchoolId()))
                 .findFirst();
     }
+
+    @Override
+    public boolean delete(School entity) {
+        return false;
+    }
+
+    @Override
+    public boolean update(School entity) {
+        return false;
+    }
+
+    @Override
+    public boolean create(School entity) {
+        return false;
+    }
 }

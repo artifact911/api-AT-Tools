@@ -1,12 +1,12 @@
 package org.art.repositories;
 
 import org.art.dao.LessonClassDao;
+import org.art.exceptions.DaoException;
 import org.art.model.LessonClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class LessonClassRepository implements CrudRepository<Integer, LessonClass> {
@@ -20,12 +20,12 @@ public class LessonClassRepository implements CrudRepository<Integer, LessonClas
 
     @Override
     public List<LessonClass> getAll() {
-        return null;
+        return lessonClassDao.getAll();
     }
 
     @Override
-    public Optional<LessonClass> getById(Integer id) {
-        return lessonClassDao.getById(id);
+    public LessonClass getById(Integer id) {
+        return lessonClassDao.getById(id).orElseThrow(() -> new DaoException("LessonClass is not found"));
     }
 
     @Override

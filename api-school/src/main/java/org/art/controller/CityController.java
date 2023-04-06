@@ -1,16 +1,18 @@
 package org.art.controller;
 
+import org.art.common.Api;
+import org.art.dto.city.CreateCityReqBody;
 import org.art.model.City;
 import org.art.model.HelloWorld;
 import org.art.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.art.helpers.response.RespEntityHelper.getErrorResp;
+import static org.art.helpers.response.RespEntityHelper.getSuccessResp;
 
 @RestController
 @RequestMapping("/cities")
@@ -19,7 +21,7 @@ public class CityController {
     private final CityService cityService;
 
     @Autowired
-    public CityController (CityService cityService) {
+    public CityController(CityService cityService) {
         this.cityService = cityService;
     }
 
@@ -45,5 +47,13 @@ public class CityController {
     @ResponseStatus(HttpStatus.OK)
     public City getCityById(@PathVariable("cityId") Integer id) {
         return cityService.getCityById(id);
+    }
+
+    @PostMapping("/create/new")
+    public ResponseEntity<?> createNewCity(@RequestBody CreateCityReqBody body) {
+        if (cityService.createCity(body)) {
+            return getSuccessResp(HttpStatus.CREATED);
+        }
+        return getErrorResp(HttpMethod.POST, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

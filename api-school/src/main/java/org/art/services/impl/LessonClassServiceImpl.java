@@ -1,23 +1,25 @@
 package org.art.services.impl;
 
 import org.art.dao.LessonClassDao;
-import org.art.exceptions.DaoException;
 import org.art.model.LessonClass;
+import org.art.repositories.LessonClassRepository;
 import org.art.services.LessonClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LessonClassServiceImpl implements LessonClassService {
 
     private final LessonClassDao lessonClassDao;
+    private final LessonClassRepository lessonClassRepository;
 
     @Autowired
-    public LessonClassServiceImpl(LessonClassDao lessonClassDao) {
+    public LessonClassServiceImpl(LessonClassDao lessonClassDao,
+                                  LessonClassRepository lessonClassRepository) {
         this.lessonClassDao = lessonClassDao;
+        this.lessonClassRepository = lessonClassRepository;
     }
 
     @Override
@@ -32,6 +34,6 @@ public class LessonClassServiceImpl implements LessonClassService {
 
     @Override
     public LessonClass getLessonClassById(Integer id) {
-       return lessonClassDao.getById(id).orElseThrow(() -> new DaoException("LessonClass not found"));
+        return lessonClassRepository.getById(id);
     }
 }

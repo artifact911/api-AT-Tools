@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.art.util.CreateNewPupilUtil.createNewPupil;
+
 @Service
 public class PupilServiceImpl implements PupilService {
 
@@ -40,7 +42,7 @@ public class PupilServiceImpl implements PupilService {
 
     @Override
     public Pupil getPupilById(Integer id) {
-        return pupilRepository.getById(id).orElseThrow(() -> new DaoException("Pupil not found"));
+        return pupilRepository.getById(id);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class PupilServiceImpl implements PupilService {
         if (Objects.nonNull(body.getLessonClassId())) {
             LessonClass lessonClass = lessonClassService.getLessonClassById(body.getLessonClassId());
 
-            Pupil newPupil = CreateNewPupilUtil.createNewPupil(body, lessonClass);
+            Pupil newPupil = createNewPupil(body, lessonClass);
             pupilRepository.create(newPupil);
             return true;
 

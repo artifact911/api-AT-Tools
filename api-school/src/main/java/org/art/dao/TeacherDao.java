@@ -34,6 +34,21 @@ public class TeacherDao implements Dao<Integer, Teacher> {
                 .findFirst();
     }
 
+    @Override
+    public boolean delete(Teacher entity) {
+        return false;
+    }
+
+    @Override
+    public boolean update(Teacher entity) {
+        return false;
+    }
+
+    @Override
+    public boolean create(Teacher entity) {
+        return false;
+    }
+
     public List<Teacher> getTeachersByTechnology(MainObject mainObject) {
         List<Teacher> list = getAll().stream()
                 .filter(teacher -> mainObject.equals(teacher.getMainObject()))

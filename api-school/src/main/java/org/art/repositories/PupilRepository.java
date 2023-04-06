@@ -1,12 +1,12 @@
 package org.art.repositories;
 
 import org.art.dao.PupilDao;
+import org.art.exceptions.DaoException;
 import org.art.model.Pupil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class PupilRepository implements CrudRepository<Integer, Pupil> {
@@ -24,8 +24,8 @@ public class PupilRepository implements CrudRepository<Integer, Pupil> {
     }
 
     @Override
-    public Optional<Pupil> getById(Integer id) {
-        return pupilDao.getById(id);
+    public Pupil getById(Integer id) {
+        return pupilDao.getById(id).orElseThrow(() -> new DaoException("Pupil is not found"));
     }
 
     @Override

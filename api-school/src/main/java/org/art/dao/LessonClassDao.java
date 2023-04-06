@@ -30,6 +30,21 @@ public class LessonClassDao implements Dao<Integer, LessonClass> {
                 .findFirst();
     }
 
+    @Override
+    public boolean delete(LessonClass entity) {
+        return false;
+    }
+
+    @Override
+    public boolean update(LessonClass entity) {
+        return false;
+    }
+
+    @Override
+    public boolean create(LessonClass entity) {
+        return false;
+    }
+
     public List<LessonClass> getLessonClassesByLevel(Integer classLevel) {
         return getAll().stream()
                 .filter(lc -> classLevel.equals(lc.getClazz()))

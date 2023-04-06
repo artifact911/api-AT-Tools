@@ -21,4 +21,19 @@ public class CityDao implements Dao<Integer, City> {
                 .filter(city -> id.equals(city.getCityId()))
                 .findFirst();
     }
+
+    @Override
+    public boolean delete(City entity) {
+        return false;
+    }
+
+    @Override
+    public boolean update(City entity) {
+        return false;
+    }
+
+    @Override
+    public boolean create(City entity) {
+        return getAll().add(entity);
+    }
 }
