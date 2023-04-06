@@ -1,12 +1,10 @@
 package org.art.dao;
 
 import org.art.dto.PupilReqBody;
-import org.art.model.LessonClass;
-import org.art.model.Pupil;
-import org.art.model.School;
-import org.art.model.Teacher;
+import org.art.model.*;
 import org.art.storage.EntityStorage;
 import org.art.util.CreateNewPupilUtil;
+import org.art.util.CreateNewTeacherUtil;
 import org.art.util.RandomGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,6 +46,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
                 .findFirst();
     }
 
+    // TODO to remove
     public boolean delPupilById(Integer id) {
         Optional<Pupil> foundUser = getById(id);
 
@@ -62,32 +61,49 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
+    public boolean delete(Pupil pupil) {
+        Optional<Pupil> maybePupil = getById(pupil.getIdPupil());
+
+        if (maybePupil.isPresent()) {
+            EntityStorage.getCities().stream()
+                    .flatMap(city -> city.getSchools().stream())
+                    .flatMap(school -> school.getLessonClassList().stream())
+                    .map(LessonClass::getPupils)
+                    .forEach(lp -> lp.remove(maybePupil.get()));
+            return true;
+        }
+        return false;
+    }
+
     public boolean addPupil(Integer schoolId, PupilReqBody body) {
-        Optional<School> school = schoolDao.getById(schoolId);
-        if (school.isPresent()) {
-            Optional<LessonClass> lessonClass = school.get().getLessonClassList().stream()
+        Optional<School> maybeSchool = schoolDao.getById(schoolId);
+        if (maybeSchool.isPresent()) {
+            School school = maybeSchool.get();
+            Optional<LessonClass> maybeLessonClass = maybeSchool.get().getLessonClassList().stream()
                     .filter(lc -> body.getClazz() == (lc.getClazz())
                             && body.getPostfix().equals(lc.getPostfix()))
                     .findFirst();
-            if (lessonClass.isPresent()) {
-                lessonClass.get().getPupils().add(getNewPupil(body));
+            if (maybeLessonClass.isPresent()) {
+                LessonClass lessonClass = maybeLessonClass.get();
+                lessonClass.getPupils().add(getNewPupil(body));
             } else {
                 List<Pupil> list = new ArrayList<>();
                 list.add(getNewPupil(body));
 
-                Teacher teacher = createRandomTeacher(body.getClazz(), body.getPostfix(), body.getCityId(),
-                        body.getSchoolId(), body.getLessonClassId());
+                Teacher newTeacher = CreateNewTeacherUtil.createNewTeacher("Mila", "Yolovich",
+                        body.getClazz(), body.getPostfix(), school.getCityId(), school.getSchoolId(), MainObject.MATH);
 
-                LessonClass newLessonClass = createNewLessonClass(list, teacher, body.getClazz(), body.getPostfix());
+                LessonClass newLessonClass = createNewLessonClass(list, newTeacher, body.getClazz(), body.getPostfix());
 
-                school.get().getLessonClassList().add(newLessonClass);
-                school.get().getTeacherList().add(teacher);
+                school.getLessonClassList().add(newLessonClass);
+                school.getTeacherList().add(newTeacher);
             }
             return true;
         }
         return false;
     }
 
+    // TODO to remove
     public boolean patchPupil(Integer pupilId, PupilReqBody pupilReqBody) {
         Optional<Pupil> maybePatchedPupil = getById(pupilId);
 
@@ -109,6 +125,19 @@ public class PupilDao implements Dao<Integer, Pupil> {
                 patchedPupil.setClazzFullName(RandomGeneratorUtil
                         .createClassFullName(patchedPupil.getClazz(), patchedPupil.getPostfix()));
             });
+            return true;
+        }
+        return false;
+    }
+
+    public boolean update(Pupil pupil) {
+        return true;
+    }
+
+    public boolean create(Pupil pupil) {
+        Optional<LessonClass> maybeLessonClass = lessonClassDao.getById(pupil.getLessonClassId());
+        if(maybeLessonClass.isPresent()) {
+            maybeLessonClass.get().getPupils().add(pupil);
             return true;
         }
         return false;

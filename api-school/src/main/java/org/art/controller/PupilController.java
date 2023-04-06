@@ -2,16 +2,20 @@ package org.art.controller;
 
 import org.art.common.Api;
 import org.art.dto.PupilReqBody;
-import org.art.helpers.response.RespEntityHelper;
+import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Pupil;
 import org.art.services.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.art.helpers.response.RespEntityHelper.getErrorResp;
+import static org.art.helpers.response.RespEntityHelper.getSuccessResp;
 
 @RestController
 @RequestMapping("/pupils")
@@ -32,35 +36,48 @@ public class PupilController {
 
     // TODO как тут сделать возвращаемый статус код другой, если упало?
     @GetMapping("/id/{pupilId}")
-    @ResponseStatus(HttpStatus.OK)
-    public Pupil getPupilById(@PathVariable("pupilId") Integer id) {
-        return pupilService.getPupilById(id);
+    public ResponseEntity<?> getPupilById(@PathVariable("pupilId") Integer id) {
+        try {
+            return ResponseEntity.ok(pupilService.getPupilById(id));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.GET, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @DeleteMapping("/id/delete/{pupilId}")
     public ResponseEntity<?> delPupilById(@PathVariable("pupilId") Integer id) {
         if (pupilService.delPupilById(id)) {
-            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
+            return getSuccessResp(HttpStatus.OK);
         }
-        return RespEntityHelper.getErrorResp(HttpMethod.DELETE, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.DELETE, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/id/add/{schoolId}")
     public ResponseEntity<?> addPupilToSchool(@PathVariable Integer schoolId,
                                               @RequestBody PupilReqBody pupilReqBody) {
         if (pupilService.addPupilToSchool(schoolId, pupilReqBody)) {
-            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
+            return getSuccessResp(HttpStatus.OK);
         }
-        return RespEntityHelper.getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping("/create/new")
+    public ResponseEntity<?> createNewPupil(@RequestBody CreatePupilReqBody body) {
+        try {
+            pupilService.createPupil(body);
+            return getSuccessResp(HttpStatus.CREATED);
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @PatchMapping("id/patch/{pupilId}")
     public ResponseEntity<?> patchPupil(@PathVariable("pupilId") Integer id,
                                         @RequestBody PupilReqBody pupilReqBody) {
         if (pupilService.pathPupil(id, pupilReqBody)) {
-            return RespEntityHelper.getSuccessResp(HttpStatus.OK);
+            return getSuccessResp(HttpStatus.OK);
         }
-        return RespEntityHelper.getErrorResp(HttpMethod.PATCH, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.PATCH, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 //

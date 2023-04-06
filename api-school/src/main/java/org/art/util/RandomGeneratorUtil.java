@@ -47,7 +47,6 @@ public final class RandomGeneratorUtil {
     private static School createRandomSchool(int cityId) {
         School school = School.builder()
                 .name(SCHOOL_NAME_LIST.get(RN.nextInt(SCHOOL_NAME_LIST.size() - 1)))
-//                .lessonClassList(createRandomLessonClassList())
                 .build();
 
         school.setCityId(cityId);

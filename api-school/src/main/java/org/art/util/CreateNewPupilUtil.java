@@ -2,11 +2,17 @@ package org.art.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Gender;
+import org.art.model.LessonClass;
 import org.art.model.Pupil;
 
 import java.util.Arrays;
+
+import static java.util.Objects.nonNull;
+import static org.art.util.RandomGeneratorUtil.createClassFullName;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CreateNewPupilUtil {
@@ -22,9 +28,32 @@ public final class CreateNewPupilUtil {
                 .build();
     }
 
+    public static Pupil createNewPupil(CreatePupilReqBody body, @NonNull LessonClass lessonClass) {
+        Pupil.PupilBuilder builder = Pupil.builder();
+
+        if (nonNull(body.getLessonClassId())) builder.lessonClassId(body.getLessonClassId());
+        if (nonNull(body.getFirstName())) builder.firstName(body.getFirstName());
+        if (nonNull(body.getLastName())) builder.lastName(body.getLastName());
+
+        if (nonNull(body.getGender())) {
+            builder.gender(validateGender(body.getGender()));
+        } else {
+            builder.gender(Gender.UNDEFINED);
+        }
+
+        builder.cityId(lessonClass.getCityId())
+                .schoolId(lessonClass.getSchoolId())
+                .clazz(lessonClass.getClazz())
+                .postfix(lessonClass.getPostfix())
+                .clazzFullName(createClassFullName(lessonClass.getClazz(), lessonClass.getPostfix()));
+
+        return builder.build();
+    }
+
+
     public static Gender validateGender(String gender) {
-       return Arrays.stream(Gender.values()).filter(g -> gender.equals(g.name()))
-               .findFirst()
-               .orElse(Gender.UNDEFINED);
+        return Arrays.stream(Gender.values()).filter(g -> gender.equals(g.name()))
+                .findFirst()
+                .orElse(Gender.UNDEFINED);
     }
 }

@@ -1,6 +1,7 @@
 package org.art.services.impl;
 
 import org.art.dao.LessonClassDao;
+import org.art.exceptions.DaoException;
 import org.art.model.LessonClass;
 import org.art.services.LessonClassService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @Service
 public class LessonClassServiceImpl implements LessonClassService {
 
-    LessonClassDao lessonClassDao;
+    private final LessonClassDao lessonClassDao;
 
     @Autowired
     public LessonClassServiceImpl(LessonClassDao lessonClassDao) {
@@ -31,7 +32,6 @@ public class LessonClassServiceImpl implements LessonClassService {
 
     @Override
     public LessonClass getLessonClassById(Integer id) {
-        Optional<LessonClass> lessonClass = lessonClassDao.getById(id);
-        return lessonClass.orElseGet(LessonClass::new);
+       return lessonClassDao.getById(id).orElseThrow(() -> new DaoException("LessonClass not found"));
     }
 }

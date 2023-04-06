@@ -23,5 +23,6 @@ public class ErrorRes extends SuccessRes {
 
         private String ru;
         private String en;
+        private String cause;
     }
 }

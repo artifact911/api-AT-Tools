@@ -12,9 +12,13 @@ import org.springframework.http.ResponseEntity;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RespEntityHelper {
 
+    public static ResponseEntity<?> getErrorResp(HttpMethod method, Api api, HttpStatus httpStatus, String cause) {
+        return ResponseEntity.status(httpStatus)
+                .contentType(MediaType.APPLICATION_JSON).body(getErrorRespEntity(method, api, httpStatus, cause));
+    }
     public static ResponseEntity<?> getErrorResp(HttpMethod method, Api api, HttpStatus httpStatus) {
         return ResponseEntity.status(httpStatus)
-                .contentType(MediaType.APPLICATION_JSON).body(getErrorRespEntity(method, api, httpStatus));
+                .contentType(MediaType.APPLICATION_JSON).body(getErrorRespEntity(method, api, httpStatus, "cause"));
     }
 
     public static ResponseEntity<?> getSuccessResp(HttpStatus httpStatus) {
@@ -22,12 +26,12 @@ public final class RespEntityHelper {
                 .contentType(MediaType.APPLICATION_JSON).body(getSuccessRespEntity(httpStatus));
     }
 
-    private static ErrorRes getErrorRespEntity(HttpMethod method, Api api, HttpStatus httpStatus) {
+    private static ErrorRes getErrorRespEntity(HttpMethod method, Api api, HttpStatus httpStatus, String cause) {
         return new ErrorRes(httpStatus.value(),
                 Status.FAILED,
                 api.name() + "_ERROR",
                 new ErrorRes.Message("Ошибка запроса " + method.name() + " к " + api.getName(),
-                        "Failed request " + method.name() + " to " + api.getName()));
+                        "Failed request " + method.name() + " to " + api.getName(), cause));
     }
 
     private static SuccessRes getSuccessRespEntity(HttpStatus httpStatus) {
