@@ -1,7 +1,7 @@
 package org.art.controller;
 
 import org.art.common.Api;
-import org.art.dto.city.CreateCityReqBody;
+import org.art.dto.city.CreateUpdateCityReqBody;
 import org.art.model.City;
 import org.art.model.HelloWorld;
 import org.art.services.CityService;
@@ -10,6 +10,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.art.helpers.response.RespEntityHelper.getErrorResp;
 import static org.art.helpers.response.RespEntityHelper.getSuccessResp;
@@ -33,27 +35,60 @@ public class CityController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getCities() {
-
-        try {
-            return ResponseEntity.ok(cityService.getAllCities());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("Error", HttpStatus.BAD_GATEWAY);
+    @ResponseStatus(HttpStatus.OK)
+    public List<City> getCities() {
+        return cityService.getAllCities();
     }
 
     @GetMapping("/id/{cityId}")
     @ResponseStatus(HttpStatus.OK)
-    public City getCityById(@PathVariable("cityId") Integer id) {
-        return cityService.getCityById(id);
+    public ResponseEntity<?> getCityById(@PathVariable("cityId") Integer id) {
+        try {
+            return ResponseEntity.ok(cityService.getCityById(id));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.GET, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @PostMapping("/create/new")
-    public ResponseEntity<?> createNewCity(@RequestBody CreateCityReqBody body) {
-        if (cityService.createCity(body)) {
-            return getSuccessResp(HttpStatus.CREATED);
+    public ResponseEntity<?> createNewCity(@RequestBody CreateUpdateCityReqBody body) {
+        try {
+            Integer newCityId = cityService.createCity(body);
+            return getSuccessResp(HttpStatus.CREATED, String.format("City: Created with id: %s", newCityId));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.POST, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
-        return getErrorResp(HttpMethod.POST, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PatchMapping("/id/{cityId}/patch")
+    public ResponseEntity<?> patchCity(@PathVariable("cityId") Integer id,
+                                       @RequestBody CreateUpdateCityReqBody body) {
+        try {
+            Integer patchedCityId = cityService.patchCity(id, body);
+            return getSuccessResp(HttpStatus.OK, String.format("City: Patched with id: %s", patchedCityId));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.PATCH, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @PutMapping("/id/{cityId}/put")
+    public ResponseEntity<?> putCity(@PathVariable("cityId") Integer id,
+                                     @RequestBody CreateUpdateCityReqBody body) {
+        try {
+            Integer putCityId = cityService.putCity(id, body);
+            return getSuccessResp(HttpStatus.OK, String.format("City: Put with id: %s", putCityId));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.PUT, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/id/{cityId}/delete")
+    public ResponseEntity<?> deleteCity(@PathVariable("cityId") Integer id) {
+        try {
+            cityService.deleteCity(id);
+            return getSuccessResp(HttpStatus.OK, String.format("City: Deleted with id: %s", id));
+        } catch (RuntimeException e) {
+            return getErrorResp(HttpMethod.DELETE, Api.CITY_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 }

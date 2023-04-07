@@ -10,4 +10,5 @@ public class SuccessRes {
 
     private int statusCode;
     private Status status;
+    private String info;
 }

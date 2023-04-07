@@ -7,12 +7,11 @@ import org.art.common.Status;
 @Getter
 public class ErrorRes extends SuccessRes {
 
-
     private final String errorType;
     private final Message message;
 
-    public ErrorRes(int statusCode, Status status, String errorType, Message message) {
-        super(statusCode, status);
+    public ErrorRes(int statusCode, Status status, String info, String errorType, Message message) {
+        super(statusCode, status, info);
         this.errorType = errorType;
         this.message = message;
     }
@@ -23,6 +22,5 @@ public class ErrorRes extends SuccessRes {
 
         private String ru;
         private String en;
-        private String cause;
     }
 }

@@ -24,12 +24,13 @@ public class CityDao implements Dao<Integer, City> {
 
     @Override
     public boolean delete(City entity) {
-        return false;
+        return getAll().remove(entity);
     }
 
     @Override
     public boolean update(City entity) {
-        return false;
+        getById(entity.getCityId()).ifPresent(city -> getAll().remove(city));
+        return getAll().add(entity);
     }
 
     @Override

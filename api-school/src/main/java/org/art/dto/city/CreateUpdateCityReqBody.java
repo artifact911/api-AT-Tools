@@ -6,7 +6,7 @@ import org.art.model.School;
 import java.util.List;
 
 @Getter
-public class CreateCityReqBody {
+public class CreateUpdateCityReqBody {
 
     private String name;
     private List<School> schools;

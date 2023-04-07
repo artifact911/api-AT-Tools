@@ -30,12 +30,12 @@ public class CityRepository implements CrudRepository<Integer, City> {
 
     @Override
     public boolean delete(City entity) {
-        return false;
+        return cityDao.delete(getById(entity.getCityId()));
     }
 
     @Override
     public boolean update(City entity) {
-        return false;
+        return cityDao.update(entity);
     }
 
     @Override
