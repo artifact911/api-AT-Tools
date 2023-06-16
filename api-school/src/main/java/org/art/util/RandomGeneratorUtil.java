@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.art.model.*;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -119,11 +121,20 @@ public final class RandomGeneratorUtil {
                 .schoolId(schoolId)
                 .lessonClassId(lessonClassId)
                 .gender(Gender.values()[RN.nextInt(2)])
+                .birthdate(getBirthdateByClazz(clazz))
                 .build();
     }
 
     public static String createClassFullName(int clazz, String postfix) {
         return clazz + "-" + postfix;
+    }
+
+    private static LocalDate getBirthdateByClazz(int clazz) {
+        int randomYear = LocalDate.now().getYear() - (clazz + (6 + RN.nextInt(2)));
+        Month randomMonth = Month.of(1 + RN.nextInt(11));
+        int randomDay = 1 + RN.nextInt(randomMonth.maxLength() - 1);
+
+        return LocalDate.of(randomYear, randomMonth, randomDay);
     }
 
 

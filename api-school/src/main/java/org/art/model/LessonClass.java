@@ -1,16 +1,15 @@
 package org.art.model;
 
 import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.art.util.RandomGeneratorUtil;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
-@NoArgsConstructor
 public class LessonClass {
 
     private static int id = 1;
@@ -28,18 +27,6 @@ public class LessonClass {
     private List<Pupil> pupils = new ArrayList<>();
     @Builder.Default
     private Double awgClassMark = 0.0;
-
-    // TODO Зачем конструктор со всеми параметрами, но с этим не работает?
-    public LessonClass(int clazz, String postfix, Teacher mainTeacher,
-                       List<Pupil> pupils) {
-        this.clazz = clazz;
-        this.postfix = postfix;
-        this.mainTeacher = mainTeacher;
-        this.pupils = pupils;
-        this.classFullName = RandomGeneratorUtil.createClassFullName(clazz, postfix);
-        this.awgClassMark = createAwgClassMark();
-        id++;
-    }
 
     public LessonClass(int cityId, int schoolId, String classFullName, int clazz, String postfix, Teacher mainTeacher,
                        List<Pupil> pupils, Double awgClassMark) {

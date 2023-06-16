@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.art.util.CreateNewLessonClassUtil.createNewLessonClass;
-import static org.art.util.CreateNewPupilUtil.getNewPupil;
+import static org.art.util.CreateNewPupilUtil.addNewPupil;
 import static org.art.util.RandomGeneratorUtil.createRandomTeacher;
 import static org.art.util.ReflectionApiUtil.*;
 
@@ -86,10 +86,10 @@ public class PupilDao implements Dao<Integer, Pupil> {
                     .findFirst();
             if (maybeLessonClass.isPresent()) {
                 LessonClass lessonClass = maybeLessonClass.get();
-                lessonClass.getPupils().add(getNewPupil(body));
+                lessonClass.getPupils().add(addNewPupil(body));
             } else {
                 List<Pupil> list = new ArrayList<>();
-                list.add(getNewPupil(body));
+                list.add(addNewPupil(body));
 
                 Teacher newTeacher = CreateNewTeacherUtil.createNewTeacher("Mila", "Yolovich",
                         body.getClazz(), body.getPostfix(), school.getCityId(), school.getSchoolId(), MainObject.MATH);
@@ -104,7 +104,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
-    // TODO to remove
+    // TODO to remove посмотрит MapStruct
     public boolean patchPupil(Integer pupilId, PupilReqBody pupilReqBody) {
         Optional<Pupil> maybePatchedPupil = getById(pupilId);
 

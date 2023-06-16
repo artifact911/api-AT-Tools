@@ -28,6 +28,7 @@ public class PupilController {
         this.pupilService = pupilService;
     }
 
+    // @ExceptionHandler - отловит DAOException и че-то сделает
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<Pupil> getAllPupil() {

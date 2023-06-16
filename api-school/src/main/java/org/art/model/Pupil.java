@@ -2,6 +2,7 @@ package org.art.model;
 
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -25,9 +26,10 @@ public class Pupil {
     private int clazz;
     private String postfix;
     private String clazzFullName;
+    private LocalDate birthdate;
 
     public Pupil(int cityId, int schoolId, int lessonClassId, String firstName, String lastName, Gender gender,
-                 int clazz, String postfix, String clazzFullName) {
+                 int clazz, String postfix, String clazzFullName, LocalDate birthdate) {
         this.cityId = cityId;
         this.schoolId = schoolId;
         this.lessonClassId = lessonClassId;
@@ -37,6 +39,7 @@ public class Pupil {
         this.clazz = clazz;
         this.postfix = postfix;
         this.clazzFullName = clazzFullName;
+        this.birthdate = birthdate;
         id++;
     }
 

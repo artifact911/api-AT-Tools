@@ -27,10 +27,10 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<?> hi() {
 //        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("Hello World!");
-        HelloWorld helloWorld = new HelloWorld("Hello from pupils!");
+        HelloWorld helloWorld = new HelloWorld(Api.CITY_API);
         return ResponseEntity.ok(helloWorld);
     }
 

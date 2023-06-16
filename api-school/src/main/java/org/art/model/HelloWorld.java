@@ -1,16 +1,16 @@
 package org.art.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.art.common.Api;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
 public class HelloWorld {
 
-    @Builder.Default
-    private final String hello = "Hello World!";
+    private static final String HELLO = "Hello from %s!";
+
+    @Getter
+    private String from;
+
+    public HelloWorld(Api api) {
+        this.from = String.format(HELLO, api.getName());
+    }
 }

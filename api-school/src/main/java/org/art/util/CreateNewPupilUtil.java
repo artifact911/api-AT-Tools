@@ -17,7 +17,7 @@ import static org.art.util.RandomGeneratorUtil.createClassFullName;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CreateNewPupilUtil {
 
-    public static Pupil getNewPupil(PupilReqBody pupilReqBody) {
+    public static Pupil addNewPupil(PupilReqBody pupilReqBody) {
         return Pupil.builder()
                 .firstName(pupilReqBody.getFirstName())
                 .lastName(pupilReqBody.getLastName())

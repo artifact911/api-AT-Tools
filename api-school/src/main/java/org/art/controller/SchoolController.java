@@ -23,6 +23,12 @@ public class SchoolController {
         this.schoolService = schoolService;
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String getSchoolById() {
+        return "Hello from SchoolController!";
+    }
+
     @GetMapping("/id/{schoolId}")
     @ResponseStatus(HttpStatus.OK)
     public School getSchoolById(@PathVariable("schoolId") Integer id) {
