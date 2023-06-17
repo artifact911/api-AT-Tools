@@ -12,7 +12,7 @@ public final class CreateNewTeacherUtil {
 
     public static Teacher createNewTeacher(String firstName, String lastName, int clazz, String postfix,
                                            int cityId, int schoolId, MainObject mainObject) {
-        return Teacher.builder()
+        return Teacher.teacherBuilder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .mainClass(createClassFullName(clazz, postfix))

@@ -3,10 +3,13 @@ package org.art.util;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.art.model.*;
+import org.art.model.schoolstaff.SchoolStaff;
+import org.art.model.schoolstaff.StaffRole;
 
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -54,6 +57,7 @@ public final class RandomGeneratorUtil {
         school.setCityId(cityId);
         school.setLessonClassList(createRandomLessonClassList(cityId, school.getSchoolId()));
         school.setTeacherList(createRandomTeacherList(school.getLessonClassList()));
+        school.setStaffs(createStaffList(cityId, school.getSchoolId()));
 
         return school;
     }
@@ -92,7 +96,7 @@ public final class RandomGeneratorUtil {
     }
 
     public static Teacher createRandomTeacher(int clazz, String postfix, int cityId, int schoolId, int lessonClassId) {
-        return Teacher.builder()
+        return Teacher.teacherBuilder()
                 .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                 .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
                 .mainClass(createClassFullName(clazz, postfix))
@@ -100,6 +104,8 @@ public final class RandomGeneratorUtil {
                 .schoolId(schoolId)
                 .lessonClassId(lessonClassId)
                 .mainObject(MainObject.values()[RN.nextInt(MainObject.values().length)])
+                .birthdate(createStaffBirthday())
+                .staffRole(StaffRole.TEACHER)
                 .build();
     }
 
@@ -111,7 +117,7 @@ public final class RandomGeneratorUtil {
     }
 
     private static Pupil createRandomPupil(int clazz, String postfix, int cityId, int schoolId, int lessonClassId) {
-        return Pupil.builder()
+        return Pupil.pupilBuilder()
                 .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
                 .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
                 .clazz(clazz)
@@ -121,16 +127,51 @@ public final class RandomGeneratorUtil {
                 .schoolId(schoolId)
                 .lessonClassId(lessonClassId)
                 .gender(Gender.values()[RN.nextInt(2)])
-                .birthdate(getBirthdateByClazz(clazz))
+                .birthdate(createPupilBirthdateByClazz(clazz))
+                .staffRole(StaffRole.PUPIL)
                 .build();
+    }
+
+    private static List<SchoolStaff> createStaffList(int cityId, int schoolId) {
+        return Arrays.stream(StaffRole.values())
+                .filter(sr -> !StaffRole.TEACHER.equals(sr)
+                        && !StaffRole.PUPIL.equals(sr)
+                        && !StaffRole.UNDEFINED.equals(sr))
+                .map(r -> createStaffByType(cityId, schoolId, r))
+                .toList();
+    }
+
+    private static SchoolStaff createStaffByType(int cityId, int schoolId, StaffRole staffRole) {
+        SchoolStaff staff = SchoolStaff.builder()
+                .id(SchoolStaff.staffIdIncrement)
+                .staffRole(staffRole)
+                .birthdate(createStaffBirthday())
+                .cityId(cityId)
+                .schoolId(schoolId)
+                .firstName(FIRST_NAME_LIST.get(RN.nextInt(FIRST_NAME_LIST.size() - 1)))
+                .lastName(LAST_NAME_LIST.get(RN.nextInt(LAST_NAME_LIST.size() - 1)))
+                .build();
+
+        SchoolStaff.staffIdIncrement++;
+
+        return staff;
     }
 
     public static String createClassFullName(int clazz, String postfix) {
         return clazz + "-" + postfix;
     }
 
-    private static LocalDate getBirthdateByClazz(int clazz) {
+
+    private static LocalDate createPupilBirthdateByClazz(int clazz) {
         int randomYear = LocalDate.now().getYear() - (clazz + (6 + RN.nextInt(2)));
+        Month randomMonth = Month.of(1 + RN.nextInt(11));
+        int randomDay = 1 + RN.nextInt(randomMonth.maxLength() - 1);
+
+        return LocalDate.of(randomYear, randomMonth, randomDay);
+    }
+
+    private static LocalDate createStaffBirthday() {
+        int randomYear = LocalDate.now().getYear() - (19 + RN.nextInt(40));
         Month randomMonth = Month.of(1 + RN.nextInt(11));
         int randomDay = 1 + RN.nextInt(randomMonth.maxLength() - 1);
 

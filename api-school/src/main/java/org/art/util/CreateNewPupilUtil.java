@@ -18,7 +18,7 @@ import static org.art.util.RandomGeneratorUtil.createClassFullName;
 public final class CreateNewPupilUtil {
 
     public static Pupil addNewPupil(PupilReqBody pupilReqBody) {
-        return Pupil.builder()
+        return Pupil.pupilBuilder()
                 .firstName(pupilReqBody.getFirstName())
                 .lastName(pupilReqBody.getLastName())
                 .gender(validateGender(pupilReqBody.getGender()))
@@ -29,7 +29,7 @@ public final class CreateNewPupilUtil {
     }
 
     public static Pupil createNewPupil(CreatePupilReqBody body, @NonNull LessonClass lessonClass) {
-        Pupil.PupilBuilder builder = Pupil.builder();
+        Pupil.PupilBuilder builder = Pupil.pupilBuilder();
 
         if (nonNull(body.getLessonClassId())) builder.lessonClassId(body.getLessonClassId());
         if (nonNull(body.getFirstName())) builder.firstName(body.getFirstName());

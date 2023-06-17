@@ -36,13 +36,13 @@ public class CityController {
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<City> getCities() {
+    public List<City> allCities() {
         return cityService.getAllCities();
     }
 
     @GetMapping("/id/{cityId}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> getCityById(@PathVariable("cityId") Integer id) {
+    public ResponseEntity<?> cityById(@PathVariable("cityId") Integer id) {
         try {
             return ResponseEntity.ok(cityService.getCityById(id));
         } catch (RuntimeException e) {
@@ -51,7 +51,7 @@ public class CityController {
     }
 
     @PostMapping("/create/new")
-    public ResponseEntity<?> createNewCity(@RequestBody CreateUpdateCityReqBody body) {
+    public ResponseEntity<?> newCity(@RequestBody CreateUpdateCityReqBody body) {
         try {
             Integer newCityId = cityService.createCity(body);
             return getSuccessResp(HttpStatus.CREATED, String.format("City: Created with id: %s", newCityId));
@@ -61,8 +61,8 @@ public class CityController {
     }
 
     @PatchMapping("/id/{cityId}/patch")
-    public ResponseEntity<?> patchCity(@PathVariable("cityId") Integer id,
-                                       @RequestBody CreateUpdateCityReqBody body) {
+    public ResponseEntity<?> editCity(@PathVariable("cityId") Integer id,
+                                      @RequestBody CreateUpdateCityReqBody body) {
         try {
             Integer patchedCityId = cityService.patchCity(id, body);
             return getSuccessResp(HttpStatus.OK, String.format("City: Patched with id: %s", patchedCityId));
