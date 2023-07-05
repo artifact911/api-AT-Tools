@@ -17,7 +17,7 @@ public class SchoolStaff {
     private int id;
     private int cityId;
     private int schoolId;
-    private StaffRole staffRole;
+    private String staffRole;
     private String firstName;
     private String lastName;
     private LocalDate birthdate;

@@ -1,5 +1,3 @@
-CREATE DATABASE school_repository;
-
 CREATE TABLE city
 (
     id   SERIAL PRIMARY KEY,
@@ -24,26 +22,6 @@ CREATE TABLE lesson_class
 
 );
 
-CREATE TABLE lesson_object
-(
-    id       SERIAL PRIMARY KEY,
-    name     VARCHAR(64) UNIQUE NOT NULL,
-    rus_name VARCHAR(64) UNIQUE NOT NULL
-);
-
-CREATE TABLE role_staff
-(
-    id       SERIAL PRIMARY KEY,
-    name     VARCHAR(64) UNIQUE NOT NULL,
-    rus_name VARCHAR(64) UNIQUE NOT NULL
-);
-
-CREATE TABLE gender
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(64) UNIQUE NOT NULL
-);
-
 CREATE TABLE teacher
 (
     id              SERIAL PRIMARY KEY,
@@ -56,9 +34,6 @@ CREATE TABLE teacher
     last_name       VARCHAR(128) NOT NULL,
     birthdate       DATE         NOT NULL
 );
-
-ALTER TABLE IF EXISTS lesson_class
-    ADD COLUMN teacher_id INT REFERENCES teacher (id);
 
 CREATE TABLE school_staff
 (

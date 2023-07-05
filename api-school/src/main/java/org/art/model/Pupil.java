@@ -28,7 +28,7 @@ public class Pupil extends SchoolStaff {
     public Pupil(int cityId, int schoolId, int lessonClassId, StaffRole staffRole, String firstName, String lastName, Gender gender,
                  int clazz, String postfix, String clazzFullName, LocalDate birthdate) {
 
-        super(id, cityId, schoolId, staffRole, firstName, lastName, birthdate);
+        super(id, cityId, schoolId, staffRole.getRusStaffName(), firstName, lastName, birthdate);
         this.lessonClassId = lessonClassId;
         this.gender = gender;
         this.clazz = clazz;

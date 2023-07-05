@@ -44,7 +44,7 @@ public final class RandomGeneratorUtil {
 
     private static List<School> createRandomSchoolsList(int cityId) {
         List<School> list = new ArrayList<>();
-        IntStream.range(0, RN.nextInt(5)).forEach(n -> list.add(createRandomSchool(cityId)));
+        IntStream.range(0, RN.nextInt(5) + 1).forEach(n -> list.add(createRandomSchool(cityId)));
 
         return list;
     }
@@ -144,7 +144,7 @@ public final class RandomGeneratorUtil {
     private static SchoolStaff createStaffByType(int cityId, int schoolId, StaffRole staffRole) {
         SchoolStaff staff = SchoolStaff.builder()
                 .id(SchoolStaff.staffIdIncrement)
-                .staffRole(staffRole)
+                .staffRole(staffRole.getRusStaffName())
                 .birthdate(createStaffBirthday())
                 .cityId(cityId)
                 .schoolId(schoolId)
