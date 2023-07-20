@@ -1,8 +1,10 @@
 package org.art.school.teacher;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TeacherItem {
 
     private Integer teacherId;

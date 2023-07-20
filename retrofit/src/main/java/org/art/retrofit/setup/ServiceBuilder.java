@@ -2,11 +2,16 @@ package org.art.retrofit.setup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import org.art.retrofit.RequestBodyConverter;
 import org.art.retrofit.interceptors.PrettyLoggingInterceptor;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
@@ -18,9 +23,14 @@ import java.util.concurrent.TimeUnit;
 import static org.art.retrofit.interceptors.PrettyLoggingInterceptor.Level.VERBOSE;
 
 @Slf4j
+@Component
+@Scope("prototype")
+@Getter
+@NoArgsConstructor
 public class ServiceBuilder {
 
     private List<Interceptor> interceptors = new ArrayList<>();
+    private RequestBodyConverter converter;
 
     public static OkHttpClient.Builder getOkHttpClientBuilder() {
         return new OkHttpClient.Builder()
@@ -40,13 +50,17 @@ public class ServiceBuilder {
 
     private Retrofit getRetrofit(OkHttpClient.Builder okHttpClientBuilder, Service service) {
         Gson gson = new GsonBuilder().setLenient().create();
-        return new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(service.type().getBaseUrl() + service.path())
                 .client(okHttpClientBuilder.addInterceptor(new PrettyLoggingInterceptor(log::info).setLevel(VERBOSE)).build())
 //                .client(okHttpClientBuilder.build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
+
+        converter = new RequestBodyConverter(retrofit);
+
+        return retrofit;
     }
 
     public ServiceBuilder addInterceptor(Interceptor interceptor) {

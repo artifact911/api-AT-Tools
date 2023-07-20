@@ -7,17 +7,24 @@ import lombok.Getter;
 @Getter
 public enum MainObject {
 
-    MATH ("Математика"),
-    HISTORY("История"),
-    PHYSICS("Физика"),
-    CHEMISTRY("Химия"),
-    ENGLISH("Английский язык"),
-    RUSSIAN("Русский язык"),
+    ART ("Искусство"),
+    ASTRONOMY("Астрономия"),
+    BELORUSSIAN("Белорусский язык"),
+    BY_LITERATURE("Белорусская литература"),
     BIOLOGY("Биология"),
+    CHEMISTRY("Химия"),
+    COMPUTER_SCIENCE("Информатика"),
+    ENGLISH("Английский язык"),
     GEOGRAPHY("География"),
-    LITERATURE("Литература"),
+    HISTORY("История"),
+    MATH ("Математика"),
+    MUSIC("Музыка"),
+    PAINTING("Рисование"),
+    PHYSICS("Физика"),
+    RUS_LITERATURE("Русская литература"),
+    RUSSIAN("Русский язык"),
     SPORT("ФизВоспитание"),
-    ASTRONOMY("Астрономия");
+    TECHNICAL_DRAWING("Черчение");
 
     private final String rusName;
 }

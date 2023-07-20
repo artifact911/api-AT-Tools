@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public final class Hosts {
 
     public static final String LOCALHOST_8083 = "http://localhost:8083/";
+    public static final String LOCALHOST_8084 = "http://localhost:8084/";
 }

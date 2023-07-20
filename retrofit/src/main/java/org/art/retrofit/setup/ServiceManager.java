@@ -1,31 +1,33 @@
 package org.art.retrofit.setup;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import org.art.errors.ErrorBody;
 import org.art.retrofit.interceptors.BasicApiHeadersInterceptor;
 import org.art.singletons.GlobalSingletons;
+import org.springframework.beans.factory.annotation.Autowired;
 import retrofit2.Response;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
+@RequiredArgsConstructor
 public abstract class ServiceManager {
 
+
+    @Autowired
     protected ServiceBuilder serviceBuilder;
-    private final ObjectMapper objectMapper;
 
-    {
-        serviceBuilder = new ServiceBuilder();
-        objectMapper = GlobalSingletons.getInstanceObjectMapper();
-    }
+    @Autowired
+    private BasicApiHeadersInterceptor basicApiHeadersInterceptor;
+    private final ObjectMapper objectMapper = GlobalSingletons.getInstanceObjectMapper();
 
-    public ServiceManager() {
-        init();
-    }
-
+    @PostConstruct
     private void init() {
-        serviceBuilder.addInterceptor(new BasicApiHeadersInterceptor());
+        serviceBuilder.addInterceptor(basicApiHeadersInterceptor);
     }
 
     @SneakyThrows
@@ -52,5 +54,10 @@ public abstract class ServiceManager {
     @SneakyThrows
     public <T> T getResponseClass(Response<ResponseBody> response, Class<T> clazz) {
         return clazz.isAssignableFrom(ErrorBody.class) ? clazz.cast(getErrorBody(response)) : getBody(response, clazz);
+    }
+
+    @SneakyThrows
+    protected final RequestBody createRequest(final Object request) {
+        return serviceBuilder.getConverter().createRequest(request);
     }
 }
