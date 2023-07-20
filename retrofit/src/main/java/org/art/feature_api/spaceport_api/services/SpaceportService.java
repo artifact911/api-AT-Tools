@@ -7,5 +7,5 @@ import org.art.retrofit.setup.ServiceType;
 @Service(type = ServiceType.LOCALHOST_84, path = "spaceport/")
 public interface SpaceportService extends BaseHttpMethodsService {
 
-    String GET_ALL_EP = "all";
+    String GET_ALL_SPACEPORT_EP = "all";
 }

@@ -1,0 +1,14 @@
+package org.art.dynamic_fields.pojos;
+
+import lombok.Getter;
+import org.art.dynamic_fields.ValueField;
+import org.art.dynamic_fields.ValueFieldType;
+
+public record CarField(@Getter ValueFieldType type,
+                       @Getter String id,
+                       Integer cost,
+                       String model,
+                       String madeIn,
+                       String madeBy) implements ValueField {
+
+}

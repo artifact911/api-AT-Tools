@@ -23,7 +23,6 @@ import static org.art.school_api.services.city.CityApiService.GET_ALL_CITIES_EP;
 import static org.art.school_api.services.city.CityApiService.GET_CITY_BY_ID_EP;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-
 @Epic(CITY_API)
 @Owner(KORBEN_TEAM)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
