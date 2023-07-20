@@ -9,4 +9,5 @@ include 'common:entity'
 findProject(':common:entity')?.name = 'entity'
 include 'common:constants'
 findProject(':common:constants')?.name = 'constants'
+include 'api-feature'
 
