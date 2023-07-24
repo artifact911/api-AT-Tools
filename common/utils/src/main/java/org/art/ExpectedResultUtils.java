@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.lang.reflect.ParameterizedType;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class ExpectedResultUtils {
 
-    public static final String PATH_TO_EXPECTED_FOLDER = "expectedresult/";
+    public static final String PATH_TO_EXPECTED_FOLDER = "exp_result/";
 
     @SneakyThrows
     public static <T> T getObjectFromResource(String filePath, Class<T> clazz) {
@@ -30,6 +31,14 @@ public class ExpectedResultUtils {
         var mapper = new ObjectMapper().registerModule(new JavaTimeModule());
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         return mapper.readValue(new File(filePath), clazz);
+    }
+
+    //TODO че-то с чтением файла по пути: без абсолютного не находит файл
+    @SneakyThrows
+    public static <T> T getObjectFromResourceWithMapper1(String filePath, Class<T> clazz) {
+        var mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper.readValue(new ClassPathResource(filePath).getFile(), clazz);
     }
 
     private static class ListOf<T> implements ParameterizedType {
