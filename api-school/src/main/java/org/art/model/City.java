@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 @Builder
 @EqualsAndHashCode
-@Schema(name = "city_model", description = "City model", implementation = City.class)
+//@Schema(name = "city_model", description = "City model", implementation = City.class)
 public class City {
 
     private static int id = 1;

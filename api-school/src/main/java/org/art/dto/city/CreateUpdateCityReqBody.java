@@ -14,6 +14,6 @@ public class CreateUpdateCityReqBody {
     @Schema(requiredMode = Schema.RequiredMode.REQUIRED, example = "Мордор")
     private String name;
 
-    @Schema(requiredMode = Schema.RequiredMode.NOT_REQUIRED, example = "Мордор")
+    @Schema(requiredMode = Schema.RequiredMode.NOT_REQUIRED)
     private List<School> schools;
 }
