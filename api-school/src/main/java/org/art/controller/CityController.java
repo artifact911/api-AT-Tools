@@ -1,5 +1,6 @@
 package org.art.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.art.common.Api;
 import org.art.dto.city.CreateUpdateCityReqBody;
 import org.art.model.City;
@@ -16,6 +17,7 @@ import java.util.List;
 import static org.art.helpers.response.RespEntityHelper.getErrorResp;
 import static org.art.helpers.response.RespEntityHelper.getSuccessResp;
 
+@Tag(name = "city-api", description = "City APIs")
 @RestController
 @RequestMapping("/cities")
 public class CityController {

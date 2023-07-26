@@ -30,7 +30,7 @@ public class TeacherDao implements Dao<Integer, Teacher> {
     @Override
     public Optional<Teacher> getById(Integer id) {
         return getAll().stream()
-                .filter(teacher -> id.equals(teacher.getTeacherId()))
+                .filter(teacher -> id.equals(teacher.getStaffId()))
                 .findFirst();
     }
 

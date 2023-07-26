@@ -1,5 +1,6 @@
 package org.art.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.art.model.School;
 import org.art.services.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Tag(name = "school-api", description = "School APIs")
 @RestController
 @RequestMapping("/schools")
 public class SchoolController {

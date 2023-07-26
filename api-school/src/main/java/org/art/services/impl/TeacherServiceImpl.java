@@ -7,6 +7,7 @@ import org.art.services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,10 +38,10 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     private MainObject validateTechnology(String technology) {
-        try {
-            return MainObject.valueOf(technology);
-        } catch (IllegalArgumentException e) {
-            return MainObject.PHYSICS;
-        }
+
+        return Arrays.stream(MainObject.values())
+                .filter(v -> technology.equalsIgnoreCase(v.name()))
+                .findFirst()
+                .orElse(MainObject.PHYSICS);
     }
 }

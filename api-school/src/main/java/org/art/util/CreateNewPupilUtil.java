@@ -3,7 +3,7 @@ package org.art.util;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Gender;
 import org.art.model.LessonClass;
@@ -17,7 +17,7 @@ import static org.art.util.RandomGeneratorUtil.createClassFullName;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CreateNewPupilUtil {
 
-    public static Pupil addNewPupil(PupilReqBody pupilReqBody) {
+    public static Pupil addNewPupil(PatchPupilReqBody pupilReqBody) {
         return Pupil.pupilBuilder()
                 .firstName(pupilReqBody.getFirstName())
                 .lastName(pupilReqBody.getLastName())

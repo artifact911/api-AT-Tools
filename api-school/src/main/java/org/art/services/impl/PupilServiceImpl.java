@@ -1,21 +1,17 @@
 package org.art.services.impl;
 
 import org.art.dao.PupilDao;
-import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.dto.pupil.CreatePupilReqBody;
-import org.art.exceptions.DaoException;
 import org.art.model.LessonClass;
 import org.art.model.Pupil;
-import org.art.repositories.LessonClassRepository;
 import org.art.repositories.PupilRepository;
 import org.art.services.PupilService;
-import org.art.util.CreateNewPupilUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static org.art.util.CreateNewPupilUtil.createNewPupil;
 
@@ -51,12 +47,12 @@ public class PupilServiceImpl implements PupilService {
     }
 
     @Override
-    public boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody) {
+    public boolean addPupilToSchool(Integer schoolId, PatchPupilReqBody pupilReqBody) {
         return pupilDao.addPupil(schoolId, pupilReqBody);
     }
 
     @Override
-    public boolean pathPupil(Integer pupilId, PupilReqBody pupilReqBody) {
+    public boolean pathPupil(Integer pupilId, PatchPupilReqBody pupilReqBody) {
         return pupilDao.patchPupil(pupilId, pupilReqBody);
     }
 

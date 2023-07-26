@@ -143,7 +143,7 @@ public final class RandomGeneratorUtil {
 
     private static SchoolStaff createStaffByType(int cityId, int schoolId, StaffRole staffRole) {
         SchoolStaff staff = SchoolStaff.builder()
-                .id(SchoolStaff.staffIdIncrement)
+                .staffId(SchoolStaff.staffIdIncrement)
                 .staffRole(staffRole.getRusStaffName())
                 .birthdate(createStaffBirthday())
                 .cityId(cityId)

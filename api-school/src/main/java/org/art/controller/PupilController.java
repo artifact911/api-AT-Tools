@@ -1,14 +1,14 @@
 package org.art.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.art.common.Api;
-import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Pupil;
 import org.art.services.PupilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,7 @@ import java.util.List;
 import static org.art.helpers.response.RespEntityHelper.getErrorResp;
 import static org.art.helpers.response.RespEntityHelper.getSuccessResp;
 
+@Tag(name = "pupil-api", description = "Pupil APIs")
 @RestController
 @RequestMapping("/pupils")
 public class PupilController {
@@ -55,7 +56,7 @@ public class PupilController {
 
     @PostMapping("/id/add/{schoolId}")
     public ResponseEntity<?> addPupilToSchool(@PathVariable Integer schoolId,
-                                              @RequestBody PupilReqBody pupilReqBody) {
+                                              @RequestBody PatchPupilReqBody pupilReqBody) {
         if (pupilService.addPupilToSchool(schoolId, pupilReqBody)) {
             return getSuccessResp(HttpStatus.OK);
         }
@@ -74,7 +75,7 @@ public class PupilController {
 
     @PatchMapping("id/patch/{pupilId}")
     public ResponseEntity<?> patchPupil(@PathVariable("pupilId") Integer id,
-                                        @RequestBody PupilReqBody pupilReqBody) {
+                                        @RequestBody PatchPupilReqBody pupilReqBody) {
         if (pupilService.pathPupil(id, pupilReqBody)) {
             return getSuccessResp(HttpStatus.OK);
         }

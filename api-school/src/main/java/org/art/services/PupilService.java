@@ -1,6 +1,6 @@
 package org.art.services;
 
-import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Pupil;
 
@@ -14,9 +14,9 @@ public interface PupilService {
 
     boolean delPupilById(Integer id);
 
-    boolean addPupilToSchool(Integer schoolId, PupilReqBody pupilReqBody);
+    boolean addPupilToSchool(Integer schoolId, PatchPupilReqBody pupilReqBody);
 
-    boolean pathPupil(Integer pupilId, PupilReqBody pupilReqBody);
+    boolean pathPupil(Integer pupilId, PatchPupilReqBody pupilReqBody);
 
     boolean createPupil (CreatePupilReqBody body);
 }

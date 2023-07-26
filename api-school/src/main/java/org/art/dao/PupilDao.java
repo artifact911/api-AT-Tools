@@ -1,6 +1,6 @@
 package org.art.dao;
 
-import org.art.dto.PupilReqBody;
+import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.model.*;
 import org.art.storage.EntityStorage;
 import org.art.util.CreateNewPupilUtil;
@@ -42,7 +42,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
     @Override
     public Optional<Pupil> getById(Integer id) {
         return getAll().stream()
-                .filter(pupil -> id.equals(pupil.getIdPupil()))
+                .filter(pupil -> id.equals(pupil.getStaffId()))
                 .findFirst();
     }
 
@@ -63,7 +63,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
 
     @Override
     public boolean delete(Pupil pupil) {
-        Optional<Pupil> maybePupil = getById(pupil.getIdPupil());
+        Optional<Pupil> maybePupil = getById(pupil.getStaffId());
 
         if (maybePupil.isPresent()) {
             EntityStorage.getCities().stream()
@@ -76,7 +76,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
         return false;
     }
 
-    public boolean addPupil(Integer schoolId, PupilReqBody body) {
+    public boolean addPupil(Integer schoolId, PatchPupilReqBody body) {
         Optional<School> maybeSchool = schoolDao.getById(schoolId);
         if (maybeSchool.isPresent()) {
             School school = maybeSchool.get();
@@ -105,7 +105,7 @@ public class PupilDao implements Dao<Integer, Pupil> {
     }
 
     // TODO to remove посмотрит MapStruct
-    public boolean patchPupil(Integer pupilId, PupilReqBody pupilReqBody) {
+    public boolean patchPupil(Integer pupilId, PatchPupilReqBody pupilReqBody) {
         Optional<Pupil> maybePatchedPupil = getById(pupilId);
 
         if (maybePatchedPupil.isPresent()) {
