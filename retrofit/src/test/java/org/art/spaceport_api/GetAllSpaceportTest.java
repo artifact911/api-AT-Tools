@@ -10,6 +10,7 @@ import org.art.dynamic_fields.ValueFieldType;
 import org.art.dynamic_fields.pojos.PlaneField;
 import org.art.feature_api.spaceport_api.services.SpaceportManager;
 import org.art.spaceport.GetAllSpaceportResp;
+import org.art.spaceport.SpaceportItemResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static org.art.ApiTags.SPACEPORT_API;
 import static org.art.ExpectedResultUtils.PATH_TO_EXPECTED_FOLDER;
 import static org.art.ExpectedResultUtils.getObjectFromResourceWithMapper1;
+import static org.art.GenerateHoursStringByNumberAmount.getHoursString;
 import static org.art.Teams.KORBEN_TEAM;
 import static org.art.TestTags.POSITIVE;
 import static org.art.dynamic_fields.ValueField.findValueFieldByPredicate;
@@ -34,6 +36,7 @@ public class GetAllSpaceportTest {
     private SpaceportManager spaceportManager;
 
     private static final String PLANE_ID = "#PLANE";
+    private static final String MESSAGE_TO_START = "До старта осталось %s";
     private static final String PATH_JSON_TEST = PATH_TO_EXPECTED_FOLDER + "spaceport/getSpaceportList.json";
 
     @Tags({@Tag(POSITIVE), @Tag(GET_ALL_SPACEPORT_EP)})
@@ -51,17 +54,25 @@ public class GetAllSpaceportTest {
 
     @Test
     @SneakyThrows
+    @DisplayName("Сравнение списка от апи со списком в json")
     void checkSpaceportList() {
 // Способ 1
 //        ObjectMapper mapper = getInstanceObjectMapper();
 //        Object resource = ExpectedResultUtils.getObjectFromResource(PATH_JSON_TEST, Object.class);
 //        GetAllSpaceportResp resp = mapper.readValue(mapper.writeValueAsString(resource), GetAllSpaceportResp.class);
 
-
         GetAllSpaceportResp resp = getObjectFromResourceWithMapper1(PATH_JSON_TEST, GetAllSpaceportResp.class);
 
-
         assertEquals(resp, getAllSpaceportResp());
+    }
+
+    @Test
+    @DisplayName("Проверка крличества часов до старта")
+    void checkTime() {
+        GetAllSpaceportResp resp = getAllSpaceportResp();
+        SpaceportItemResponse tab = resp.getFirstTab();
+
+        assertEquals(String.format(MESSAGE_TO_START, getHoursString(tab.hoursToStart())), tab.messageToStart());
     }
 
     private GetAllSpaceportResp getAllSpaceportResp() {

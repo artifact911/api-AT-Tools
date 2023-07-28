@@ -13,21 +13,27 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
+import java.util.Random;
+
+import static org.art.GenerateHoursStringByNumberAmount.getHoursString;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GenerateSpaceport {
 
     public static List<Spaceport> getSpaceportList() {
+        int hoursToStart = new Random().nextInt(120);
         return List.of(
                 new Spaceport("SpaceX",
                         "911",
+                        hoursToStart,
+                        getMessageToStart(hoursToStart),
                         List.of(new Bus(TransportType.BUS,
-                                TransportType.BUS.getId(),
-                                21,
-                                "Volvo",
-                                "to_Spaceport",
-                                LocalDate.of(2009, Month.APRIL, 4),
-                                "Sweden"),
+                                        TransportType.BUS.getId(),
+                                        21,
+                                        "Volvo",
+                                        "to_Spaceport",
+                                        LocalDate.of(2009, Month.APRIL, 4),
+                                        "Sweden"),
                                 new Car(TransportType.CAR,
                                         TransportType.CAR.getId(),
                                         "3999",
@@ -53,6 +59,10 @@ public final class GenerateSpaceport {
                                         8,
                                         LocalDate.of(2021, Month.DECEMBER, 1),
                                         "USSR"
-                                        ))));
+                                ))));
+    }
+
+    private static String getMessageToStart(int hoursToStart) {
+        return String.format("До старта осталось %s", getHoursString(hoursToStart));
     }
 }

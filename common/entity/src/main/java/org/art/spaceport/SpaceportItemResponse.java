@@ -6,5 +6,7 @@ import java.util.List;
 
 public record SpaceportItemResponse(String id,
                                     String name,
+                                    Integer hoursToStart,
+                                    String messageToStart,
                                     List<ValueField> content) {
 }
