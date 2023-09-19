@@ -11,7 +11,8 @@ public enum Api {
     SCHOOL_API("school-api"),
     LESSON_CLASS_API("lesson-class-api"),
     TEACHER_API("teacher-api"),
-    PUPIL_API("pupil-api");
+    PUPIL_API("pupil-api"),
+    HEADER_API("header-api");
 
     private final String name;
 }
