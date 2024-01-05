@@ -9,7 +9,7 @@ public enum FeaturesApi {
 
     VALUE_FIELD_API("value-field-api"),
     HEADER_API("header-api"),
-    FEIGN_API("feign-api");
+    ZOO_API("zoo-api");
 
     private final String name;
 }
