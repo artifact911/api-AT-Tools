@@ -1,6 +1,6 @@
 package org.art.controller;
 
-import org.art.common.Api;
+import org.art.common.SchoolApi;
 import org.art.model.HelloWorld;
 import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.art.helpers.response.RespEntityHelper.getErrorResp;
 
@@ -23,7 +22,7 @@ public class HeaderController {
     @GetMapping
     public ResponseEntity<?> hi() {
 //        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body("Hello World!");
-        HelloWorld helloWorld = new HelloWorld(Api.HEADER_API);
+        HelloWorld helloWorld = new HelloWorld(SchoolApi.HEADER_API);
         return ResponseEntity.ok(helloWorld);
     }
 
@@ -42,7 +41,7 @@ public class HeaderController {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body("Header Accept-Language is: " + language);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -61,7 +60,7 @@ public class HeaderController {
                             ? "No"
                             : "Yes: " + optionalHeader)), HttpStatus.OK);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -84,7 +83,7 @@ public class HeaderController {
             });
             return new ResponseEntity<>(stringBuilder, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -105,7 +104,7 @@ public class HeaderController {
             });
             return new ResponseEntity<>(stringBuilder, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -124,7 +123,7 @@ public class HeaderController {
         try {
             return new ResponseEntity<>(stringBuilder, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.HEADER_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

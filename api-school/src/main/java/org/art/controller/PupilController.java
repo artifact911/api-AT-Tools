@@ -1,7 +1,7 @@
 package org.art.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.art.common.Api;
+import org.art.common.SchoolApi;
 import org.art.dto.pupil.PatchPupilReqBody;
 import org.art.dto.pupil.CreatePupilReqBody;
 import org.art.model.Pupil;
@@ -42,7 +42,7 @@ public class PupilController {
         try {
             return ResponseEntity.ok(pupilService.getPupilById(id));
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.GET, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.GET, SchoolApi.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -51,7 +51,7 @@ public class PupilController {
         if (pupilService.delPupilById(id)) {
             return getSuccessResp(HttpStatus.OK);
         }
-        return getErrorResp(HttpMethod.DELETE, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.DELETE, SchoolApi.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/id/add/{schoolId}")
@@ -60,7 +60,7 @@ public class PupilController {
         if (pupilService.addPupilToSchool(schoolId, pupilReqBody)) {
             return getSuccessResp(HttpStatus.OK);
         }
-        return getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.POST, SchoolApi.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/create/new")
@@ -69,7 +69,7 @@ public class PupilController {
             pupilService.createPupil(body);
             return getSuccessResp(HttpStatus.CREATED);
         } catch (RuntimeException e) {
-            return getErrorResp(HttpMethod.POST, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return getErrorResp(HttpMethod.POST, SchoolApi.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class PupilController {
         if (pupilService.pathPupil(id, pupilReqBody)) {
             return getSuccessResp(HttpStatus.OK);
         }
-        return getErrorResp(HttpMethod.PATCH, Api.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
+        return getErrorResp(HttpMethod.PATCH, SchoolApi.PUPIL_API, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 //

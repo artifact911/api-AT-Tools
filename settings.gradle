@@ -10,4 +10,5 @@ findProject(':common:entity')?.name = 'entity'
 include 'common:constants'
 findProject(':common:constants')?.name = 'constants'
 include 'api-feature'
+include 'feign-spring'
 

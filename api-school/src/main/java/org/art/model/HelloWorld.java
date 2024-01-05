@@ -1,7 +1,7 @@
 package org.art.model;
 
 import lombok.Getter;
-import org.art.common.Api;
+import org.art.common.SchoolApi;
 
 public class HelloWorld {
 
@@ -10,7 +10,7 @@ public class HelloWorld {
     @Getter
     private String from;
 
-    public HelloWorld(Api api) {
+    public HelloWorld(SchoolApi api) {
         this.from = String.format(HELLO, api.getName());
     }
 }
