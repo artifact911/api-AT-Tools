@@ -1,4 +1,4 @@
-package com.art.apifeature.spaceport.controller;
+package com.art.apifeature._controllers;
 
 import com.art.apifeature.spaceport.dto.GetAllSpaceport;
 import com.art.apifeature.spaceport.service.SpaceportService;
