@@ -7,10 +7,13 @@ import com.art.feign.dto.zoo.AnimalResp;
 import com.art.feign.dto.zoo.CreateAnimalReq;
 import feign.Feign;
 import feign.Logger;
+import feign.Response;
+import feign.codec.Decoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -47,9 +50,16 @@ public class CreateAnimalTest extends BaseTest {
         basicToken = basicAuthClient.getBasicToken().token().split(" ")[1];
     }
 
+    @SneakyThrows
     @Test
     public void createRandomAnimal() {
-        AnimalResp randomAnimal = zooClient.postRandomAnimal(Map.of("Authorization", basicToken));
+//        AnimalResp randomAnimal = zooClient.postRandomAnimal(Map.of("Authorization", basicToken));
+
+        // если хотим универсалить методы в клиенте
+        Response resp = zooClient.postRandomAnimal(Map.of("Authorization", basicToken));
+
+        Decoder decoder = new JacksonDecoder();
+        AnimalResp randomAnimal = (AnimalResp) decoder.decode(resp, AnimalResp.class);
 
         assertTrue(randomAnimal.id() > 15);
     }

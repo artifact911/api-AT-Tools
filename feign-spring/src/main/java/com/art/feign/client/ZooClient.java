@@ -2,10 +2,7 @@ package com.art.feign.client;
 
 import com.art.feign.dto.zoo.AnimalResp;
 import com.art.feign.dto.zoo.CreateAnimalReq;
-import feign.HeaderMap;
-import feign.Headers;
-import feign.QueryMap;
-import feign.RequestLine;
+import feign.*;
 
 import java.util.List;
 import java.util.Map;
@@ -21,8 +18,9 @@ public interface ZooClient {
     @RequestLine("GET /v1/api/zoo/type")
     List<AnimalResp> getAnimalByType(@HeaderMap Map<String, String> headers);
 
+    // Response если хотим универсалить методы
     @RequestLine("POST /v1/api/zoo/add/random")
-    AnimalResp postRandomAnimal(@HeaderMap Map<String, String> headers);
+    Response postRandomAnimal(@HeaderMap Map<String, String> headers);
 
     @RequestLine("POST /v1/api/zoo/add/type")
     AnimalResp postAnimalByType(@HeaderMap Map<String, String> headers,
