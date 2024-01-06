@@ -5,6 +5,6 @@ import org.art.spaceport.GetAllSpaceportResp;
 
 public interface SpaceportClient {
 
-    @RequestLine("GET")
+    @RequestLine("GET /v1/api/spaceport/all")
     GetAllSpaceportResp findAll();
 }

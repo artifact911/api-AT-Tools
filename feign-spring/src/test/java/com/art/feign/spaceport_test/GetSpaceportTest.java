@@ -4,6 +4,7 @@ import com.art.feign.BaseTest;
 import com.art.feign.client.SpaceportClient;
 import feign.Feign;
 import feign.Logger;
+import feign.Request;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.okhttp.OkHttpClient;
@@ -12,6 +13,8 @@ import lombok.SneakyThrows;
 import org.art.spaceport.GetAllSpaceportResp;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static org.art.Hosts.LOCALHOST_8084;
 
 public class GetSpaceportTest extends BaseTest {
 
@@ -25,7 +28,7 @@ public class GetSpaceportTest extends BaseTest {
                 .decoder(new JacksonDecoder())
                 .logger(new Slf4jLogger(SpaceportClient.class))
                 .logLevel(Logger.Level.FULL)
-                .target(SpaceportClient.class, "http://localhost:8084/v1/api/spaceport/all");
+                .target(SpaceportClient.class, LOCALHOST_8084);
 
 
     }
