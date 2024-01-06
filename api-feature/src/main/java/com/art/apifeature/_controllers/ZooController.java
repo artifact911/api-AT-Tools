@@ -3,6 +3,7 @@ package com.art.apifeature._controllers;
 import com.art.apifeature._common.FeaturesApi;
 import com.art.apifeature._common.dto.HelloWorld;
 import com.art.apifeature.animals.AnimalService;
+import com.art.apifeature.animals.dto.CreateAnimalReqBody;
 import com.art.apifeature.animals.exception.ZooException;
 import com.art.apifeature.auth.basic.BasicTokenService;
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,34 @@ public class ZooController {
             return ResponseEntity.ok(animalService.findByType(type));
         } catch (ZooException e) {
             return getErrorResp(HttpMethod.GET, FeaturesApi.ZOO_API, HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addAnimalByType(@RequestHeader(AUTHORIZATION) String token,
+                                             @RequestBody CreateAnimalReqBody body) {
+        if (!basicTokenService.checkToken(token)) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.FORBIDDEN, "Not authorized");
+        }
+
+        try {
+            return ResponseEntity.ok(animalService.create(body));
+        } catch (ZooException e) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @PostMapping("/add/type")
+    public ResponseEntity<?> addAnimalByType(@RequestHeader(AUTHORIZATION) String token,
+                                             @RequestParam("type") String type) {
+        if (!basicTokenService.checkToken(token)) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.FORBIDDEN, "Not authorized");
+        }
+
+        try {
+            return ResponseEntity.ok(animalService.create(type));
+        } catch (ZooException e) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 

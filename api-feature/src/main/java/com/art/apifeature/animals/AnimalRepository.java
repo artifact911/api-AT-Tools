@@ -1,7 +1,7 @@
 package com.art.apifeature.animals;
 
 import com.art.apifeature.CrudFeatureRepository;
-import com.art.apifeature.animals.dto.Animal;
+import com.art.apifeature.animals.entity.Animal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

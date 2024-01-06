@@ -1,4 +1,4 @@
-package com.art.apifeature.animals.dto;
+package com.art.apifeature.animals.entity;
 
 public record Animal(long id,
                      AnimalType type,

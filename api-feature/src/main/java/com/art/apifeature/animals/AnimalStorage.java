@@ -1,6 +1,6 @@
 package com.art.apifeature.animals;
 
-import com.art.apifeature.animals.dto.Animal;
+import com.art.apifeature.animals.entity.Animal;
 import com.art.apifeature.animals.util.AnimalsGenerator;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;

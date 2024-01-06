@@ -1,7 +1,7 @@
 package com.art.apifeature.animals.util;
 
-import com.art.apifeature.animals.dto.Animal;
-import com.art.apifeature.animals.dto.AnimalType;
+import com.art.apifeature.animals.entity.Animal;
+import com.art.apifeature.animals.entity.AnimalType;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
