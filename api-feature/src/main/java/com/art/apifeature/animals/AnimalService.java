@@ -4,6 +4,7 @@ import com.art.apifeature.CrudFeatureService;
 import com.art.apifeature.animals.dto.Animal;
 import com.art.apifeature.animals.dto.AnimalType;
 import com.art.apifeature.animals.exception.ZooException;
+import com.art.apifeature.animals.util.AnimalsGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -39,5 +40,14 @@ public class AnimalService implements CrudFeatureService<Long, Animal> {
         return getAll().stream()
                 .filter(animal -> animal.type().equals(animalType))
                 .toList();
+    }
+
+    @Override
+    public Animal create() {
+        Animal animal = AnimalsGenerator.createAnimal();
+        if (!animalRepository.create(animal)) {
+            throw new ZooException("Failed to create");
+        }
+        return animal;
     }
 }

@@ -14,4 +14,9 @@ public class SpaceportRepository implements CrudFeatureRepository<Integer, Space
     public List<Spaceport> getAll() {
         return GenerateSpaceport.getSpaceportList();
     }
+
+    @Override
+    public boolean create(Spaceport spaceport) {
+        return false;
+    }
 }

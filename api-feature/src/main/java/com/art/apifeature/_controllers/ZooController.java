@@ -4,14 +4,15 @@ import com.art.apifeature._common.FeaturesApi;
 import com.art.apifeature._common.dto.HelloWorld;
 import com.art.apifeature.animals.AnimalService;
 import com.art.apifeature.animals.exception.ZooException;
+import com.art.apifeature.auth.basic.BasicTokenService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.art.apifeature._common.helpers.RespEntityHelper.getErrorResp;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequestMapping("/zoo")
@@ -19,6 +20,7 @@ import static com.art.apifeature._common.helpers.RespEntityHelper.getErrorResp;
 public class ZooController {
 
     private final AnimalService animalService;
+    private final BasicTokenService basicTokenService;
 
     @GetMapping
     public ResponseEntity<?> hi() {
@@ -50,6 +52,19 @@ public class ZooController {
             return ResponseEntity.ok(animalService.findByType(type));
         } catch (ZooException e) {
             return getErrorResp(HttpMethod.GET, FeaturesApi.ZOO_API, HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @PostMapping("/add/random")
+    public ResponseEntity<?> addRandomAnimal(@RequestHeader(AUTHORIZATION) String token) {
+        if (!basicTokenService.checkToken(token)) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.FORBIDDEN, "Not authorized");
+        }
+
+        try {
+            return ResponseEntity.ok(animalService.create());
+        } catch (ZooException e) {
+            return getErrorResp(HttpMethod.POST, FeaturesApi.ZOO_API, HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }

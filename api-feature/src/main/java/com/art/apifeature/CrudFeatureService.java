@@ -7,4 +7,6 @@ public interface CrudFeatureService<K, E> {
     List<E> getAll();
 
     E findById(K id);
+
+    E create();
 }

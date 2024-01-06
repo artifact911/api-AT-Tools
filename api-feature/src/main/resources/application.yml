@@ -1,0 +1,13 @@
+server:
+  port: 8084
+  servlet:
+    contextPath: "/v1/api"
+
+spaceport:
+  openapi:
+    dev-url: "http://localhost:8084/v1/api/"
+    prod-url: "http://localhost:8084/v1/api/"
+
+basic-auth:
+  login: "art"
+  password: "123"

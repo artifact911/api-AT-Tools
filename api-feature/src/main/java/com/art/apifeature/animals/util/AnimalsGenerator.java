@@ -27,6 +27,12 @@ public final class AnimalsGenerator {
         return list;
     }
 
+    public static Animal createAnimal() {
+        Animal animal = new Animal(id, getRandomAnimalType(), RN.nextInt(1, 15), getRandomName());
+        id++;
+        return animal;
+    }
+
     public static Animal createAnimal(AnimalType type, int age, String name) {
         Animal animal = new Animal(id, type, age, name);
         id++;

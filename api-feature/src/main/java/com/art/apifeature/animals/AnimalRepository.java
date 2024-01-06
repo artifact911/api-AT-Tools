@@ -9,12 +9,17 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class AnimalRepository implements CrudFeatureRepository<Integer, Animal> {
+public class AnimalRepository implements CrudFeatureRepository<Long, Animal> {
 
     private final AnimalStorage animalStorage;
 
     @Override
     public List<Animal> getAll() {
         return animalStorage.getZoo();
+    }
+
+    @Override
+    public boolean create(Animal animal) {
+        return animalStorage.addAnimal(animal);
     }
 }
