@@ -1,0 +1,52 @@
+{
+  "spaceportList": [
+    {
+      "name": "SpaceX",
+      "id": "911",
+      "content": [
+        {
+          "type": "BUS",
+          "id": "#BUS",
+          "passengerAmount": 21,
+          "model": "Volvo",
+          "district": "to_Spaceport",
+          "madeIn": "2009-04-04",
+          "madeBy": "Sweden"
+        },
+        {
+          "type": "CAR",
+          "id": "#CAR",
+          "cost": "3999",
+          "model": "Mercedes",
+          "madeIn": "2019-07-10",
+          "madeBy": "Germany"
+        },
+        {
+          "type": "PLANE",
+          "id": "#PLANE",
+          "passengerAmount": 80,
+          "model": "Boeing",
+          "district": "to_Байконур",
+          "madeIn": "2011-07-07",
+          "madeBy": "USA"
+        },
+        {
+          "type": "SHIP",
+          "id": "#SHIP",
+          "crewAmount": 201,
+          "weapon": true,
+          "madeIn": "2009-01-12",
+          "madeBy": "USSR",
+          "displacement": "200_000"
+        },
+        {
+          "type": "SPACE_SHIP",
+          "id": "#SPACE_SHIP",
+          "crewAmount": 8,
+          "madeIn": "2021-12-01",
+          "madeBy": "USSR"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.1'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "io.freefair.lombok" version "6.6.1"
+}
+
+group = 'com.art'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+//configurations {
+//    compileOnly {
+//        extendsFrom annotationProcessor
+//    }
+//}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':common:utils')
+    implementation project(':common:entity')
+    implementation project(':common:constants')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+    // feign
+    implementation 'io.github.openfeign:feign-gson:13.1'
+    implementation 'io.github.openfeign:feign-jackson:13.1'
+    // это чтоб решить вот это
+    // Java 8 date/time type `java.time.LocalDate` not supported by default:
+    // add Module "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" to enable handling
+//    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.1'
+    implementation 'io.github.openfeign:feign-okhttp:13.1'
+    implementation 'io.github.openfeign:feign-slf4j:13.1'
+}
+
+test {
+    useJUnitPlatform()
+}
